@@ -3,6 +3,7 @@ RUN apt-get update
 RUN apt-get install -y --no-install-recommends \
     gcc \
     gcc-arm-linux-gnueabi \
+    libc6-dev \
     libc6-dev-armel-cross \
     qemu-user-static
 ENV PATH=$PATH:/rust/bin \
