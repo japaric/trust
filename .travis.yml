@@ -40,6 +40,10 @@ script:
       sh ci/run.sh $TARGET;
     fi
 
+after_success:
+  # Travis can't cache files that are not readable by "others"
+  - chmod -R a+r /home/travis/.cargo
+
 branches:
   only:
     # Release tags
