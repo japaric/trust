@@ -11,6 +11,8 @@ matrix:
       rust: nightly
     - env: TARGET=arm-unknown-linux-gnueabi
       rust: nightly
+    - env: TARGET=arm-unknown-linux-gnueabihf
+      rust: nightly
 
 install:
   - curl https://static.rust-lang.org/rustup.sh |
@@ -18,6 +20,18 @@ install:
 
 script:
   - cargo generate-lockfile
+  # For transparent QEMU user emulation
   - docker run --rm --privileged multiarch/qemu-user-static:register
   - sh ci/run-docker.sh $TARGET
 
+branches:
+  only:
+    # Release tags
+    - /^v\d+\.\d+\.\d+.*$/
+    - auto
+    - try
+
+notifications:
+  email:
+    on_success: never
+  webhooks: https://homu.herokuapp.com/travis
