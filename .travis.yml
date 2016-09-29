@@ -10,6 +10,8 @@ matrix:
       rust: stable
     - env: TARGET=x86_64-unknown-linux-gnu
       rust: nightly
+    - env: TARGET=x86_64-unknown-linux-musl
+      rust: nightly
     - env: TARGET=arm-unknown-linux-gnueabi
       rust: nightly
     - env: TARGET=arm-unknown-linux-gnueabihf

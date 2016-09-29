@@ -1,3 +1,5 @@
+extern crate gcc;
+
 use std::env;
 use std::fs::File;
 use std::io::Write;
@@ -10,4 +12,6 @@ fn main() {
         .unwrap()
         .write_all(env::var("TARGET").unwrap().as_bytes())
         .unwrap();
+
+    gcc::compile_library("libhello.a", &["hello.c"]);
 }
