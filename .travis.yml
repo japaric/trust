@@ -1,3 +1,4 @@
+cache: cargo
 dist: trusty
 language: rust
 services: docker

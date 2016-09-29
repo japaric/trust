@@ -5,3 +5,5 @@ name = "trust"
 version = "0.1.0"
 
 [dependencies]
+# Just to test 'cache: cargo'
+clap = "2.13.0"

@@ -5,9 +5,12 @@ run() {
 
     docker build -t rust ci/docker/$1
     docker run \
-           -v `rustc --print sysroot`:/rust:ro \
+           -e CARGO_HOME=/cargo \
+           -e CARGO_TARGET_DIR=/target \
+           -v $HOME/.cargo:/cargo \
+           -v `pwd`/target:/target \
            -v `pwd`:/checkout:ro \
-           -e CARGO_TARGET_DIR=/tmp/target \
+           -v `rustc --print sysroot`:/rust:ro \
            -w /checkout \
            -it rust \
            sh ci/run.sh $1
