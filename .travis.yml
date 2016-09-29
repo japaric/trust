@@ -1,31 +1,39 @@
 cache: cargo
 dist: trusty
 language: rust
+rust: nightly
 services: docker
 sudo: required
 
+env: TARGET=x86_64-unknown-linux-gnu
+
 matrix:
   include:
-    - env: TARGET=x86_64-unknown-linux-gnu
-      rust: stable
-    - env: TARGET=x86_64-unknown-linux-gnu
-      rust: nightly
-    - env: TARGET=x86_64-unknown-linux-musl
-      rust: nightly
+    # OSX
+    - env: TARGET=i686-apple-darwin
+      os: osx
+    - env: TARGET=x86_64-apple-darwin
+      os: osx
+
+    # Linux
     - env: TARGET=arm-unknown-linux-gnueabi
-      rust: nightly
     - env: TARGET=arm-unknown-linux-gnueabihf
-      rust: nightly
+    - env: TARGET=i686-unknown-linux-gnu
+    - env: TARGET=x86_64-unknown-linux-musl
 
 install:
+  # `std for cross-compilation
   - curl https://static.rust-lang.org/rustup.sh |
     sh -s -- --add-target=$TARGET --disable-sudo -y --prefix=`rustc --print sysroot` 
+  # For transparent QEMU user emulation
+  - test $TRAVIS_OS_NAME = osx || docker run --rm --privileged multiarch/qemu-user-static:register
 
 script:
-  - cargo generate-lockfile
-  # For transparent QEMU user emulation
-  - docker run --rm --privileged multiarch/qemu-user-static:register
-  - sh ci/run-docker.sh $TARGET
+  - if [[ $TRAVIS_OS_NAME = linux ]]; then
+      sh ci/run-docker.sh $TARGET;
+    else
+      sh ci/run.sh $TARGET;
+    fi
 
 branches:
   only:
