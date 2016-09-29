@@ -1,7 +1,13 @@
 set -ex
 
 run() {
-    echo $1
+    local gid=$(id -g) \
+          group=$(id -g -n) \
+          target=$1 \
+          uid=$(id -u) \
+          user=$(id -u -n)
+
+    echo $target
 
     docker build -t rust ci/docker/$1
     docker run \
@@ -13,7 +19,12 @@ run() {
            -v `rustc --print sysroot`:/rust:ro \
            -w /checkout \
            -it rust \
-           sh -c "PATH=\$PATH:/rust/bin ci/run.sh $1"
+           sh -c "
+groupadd -g $gid $group
+useradd -m -g $gid -u $uid $user
+chown $user /cargo /target
+sh -c 'PATH=\$PATH:/rust/bin ci/run.sh $target' $user
+"
 }
 
 if [ -z "$1" ]; then

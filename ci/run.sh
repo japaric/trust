@@ -1,4 +1,10 @@
 set -ex
 
-cargo test --target $1
-cargo run --target $1
+run() {
+    local target=$1
+
+    cargo test --target $target
+    cargo run --target $target
+}
+
+run $1
