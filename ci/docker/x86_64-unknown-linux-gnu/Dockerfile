@@ -4,4 +4,3 @@ RUN apt-get install -y --no-install-recommends \
     ca-certificates \
     gcc \
     libc6-dev
-ENV PATH=$PATH:/rust/bin

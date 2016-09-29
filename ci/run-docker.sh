@@ -13,7 +13,7 @@ run() {
            -v `rustc --print sysroot`:/rust:ro \
            -w /checkout \
            -it rust \
-           sh ci/run.sh $1
+           sh -c "PATH=\$PATH:/rust/bin ci/run.sh $1"
 }
 
 if [ -z "$1" ]; then
