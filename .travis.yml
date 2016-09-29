@@ -1,0 +1,23 @@
+dist: trusty
+language: rust
+services: docker
+sudo: required
+
+matrix:
+  include:
+    - env: TARGET=x86_64-unknown-linux-gnu
+      rust: stable
+    - env: TARGET=x86_64-unknown-linux-gnu
+      rust: nightly
+    - env: TARGET=arm-unknown-linux-gnueabi
+      rust: nightly
+
+install:
+  - curl https://static.rust-lang.org/rustup.sh |
+    sh -s -- --add-target=$TARGET --disable-sudo -y --prefix=`rustc --print sysroot` 
+
+script:
+  - cargo generate-lockfile
+  - docker run --rm --privileged multiarch/qemu-user-static:register
+  - sh ci/run-docker.sh $TARGET
+
