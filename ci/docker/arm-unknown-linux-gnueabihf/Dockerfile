@@ -7,5 +7,5 @@ RUN apt-get install -y --no-install-recommends \
     libc6-dev-armhf-cross \
     qemu-user-static
 ENV PATH=$PATH:/rust/bin \
-    CARGO_TARGET_ARM_UNKNOWN_LINUX_GNUEABI_LINKER=arm-linux-gnueabihf-gcc \
+    CARGO_TARGET_ARM_UNKNOWN_LINUX_GNUEABIHF_LINKER=arm-linux-gnueabihf-gcc \
     QEMU_LD_PREFIX=/usr/arm-linux-gnueabihf
