@@ -18,11 +18,17 @@ matrix:
       os: osx
 
     # Linux
+    - env: TARGET=aarch64-unknown-linux-gnu
     - env: TARGET=arm-unknown-linux-gnueabi
     - env: TARGET=arm-unknown-linux-gnueabihf
+    - env: TARGET=armv7-unknown-linux-gnueabihf
+    - env: TARGET=i586-unknown-linux-gnu
     - env: TARGET=i686-unknown-linux-gnu
+    - env: TARGET=i686-unknown-linux-musl
       # rust-lang/rust#36793
       rust: nightly-2016-09-10
+    - env: TARGET=mipsel-unknown-linux-gnu
+    - env: TARGET=mips-unknown-linux-gnu
     - env: TARGET=x86_64-unknown-linux-musl
 
 install:
@@ -34,13 +40,14 @@ install:
 
 script:
   - cargo generate-lockfile
+  # NOTE(qemu-user-static) magic to make transparent QEMU user emulation work
   - if [[ $TRAVIS_OS_NAME = linux ]]; then
+      sudo apt-get remove -y qemu-user-static &&
+      sudo apt-get install -y qemu-user-static &&
       sh ci/run-docker.sh $TARGET;
     else
       sh ci/run.sh $TARGET;
     fi
-
-after_success:
   # Travis can't cache files that are not readable by "others"
   - chmod -R a+r /home/travis/.cargo
 

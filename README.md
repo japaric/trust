@@ -4,6 +4,23 @@
 
 # `trust`
 
+## Targets
+
+- `aarch64-unknown-linux-gnu` (glibc-2.19)
+- `arm-unknown-linux-gnueabi` (glibc-2.15)
+- `arm-unknown-linux-gnueabihf` (glibc-2.15)
+- `armv7-unknown-linux-gnueabihf` (glibc-2.15)
+- `i586-unknown-linux-gnu` (glibc-2.15)
+- `i686-unknown-linux-gnu` (glibc-2.15)
+- `i686-unknown-linux-musl`
+- `mipsel-unknown-linux-gnu` (glibc-2.23)
+- `mips-unknown-linux-gnu` (glibc-2.23)
+- `powerpc-unknown-linux-gnu` (glibc-2.19)
+- `powerpc64-unknown-linux-gnu` (glibc-2.23)
+- `powerpc64le-unknown-linux-gnu` (glibc-2.19)
+- `x86_64-unknown-linux-gnu` (glibc-2.15)
+- `x86_64-unknown-linux-musl`
+
 ## License
 
 Licensed under either of
