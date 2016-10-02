@@ -24,6 +24,8 @@ matrix:
     - env: TARGET=armv7-unknown-linux-gnueabihf
     - env: TARGET=i586-unknown-linux-gnu
     - env: TARGET=i686-unknown-linux-gnu
+      # rust-lang/rust#36793
+      rust: nightly-2016-09-10
     - env: TARGET=i686-unknown-linux-musl
       # rust-lang/rust#36793
       rust: nightly-2016-09-10
