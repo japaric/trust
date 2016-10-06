@@ -32,8 +32,8 @@ install:
   - curl https://static.rust-lang.org/rustup.sh |
     sh -s -- --add-target=$TARGET --disable-sudo -y --prefix=`rustc --print sysroot` 
   # For transparent QEMU user emulation
-  - test $TRAVIS_OS_NAME = osx || \
-    docker run --privileged --rm -it ubuntu:16.04 sh -c \
+  - test $TRAVIS_OS_NAME = osx ||
+    docker run --privileged --rm -it ubuntu:16.04 sh -c
     "apt-get update && apt-get install -qq binfmt-support qemu-user-static"
 
 script:
