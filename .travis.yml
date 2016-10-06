@@ -38,14 +38,13 @@ install:
   - curl https://static.rust-lang.org/rustup.sh |
     sh -s -- --add-target=$TARGET --disable-sudo -y --prefix=`rustc --print sysroot` 
   # For transparent QEMU user emulation
-  - test $TRAVIS_OS_NAME = osx || docker run --rm --privileged multiarch/qemu-user-static:register
+  - test $TRAVIS_OS_NAME = osx || \
+    docker run --privileged --rm -it ubuntu:16.04 sh -c \
+    "apt-get update && apt-get install -qq binfmt-support qemu-user-static"
 
 script:
   - cargo generate-lockfile
-  # NOTE(qemu-user-static) magic to make transparent QEMU user emulation work
   - if [[ $TRAVIS_OS_NAME = linux ]]; then
-      sudo apt-get remove -y qemu-user-static &&
-      sudo apt-get install -y qemu-user-static &&
       sh ci/run-docker.sh $TARGET;
     else
       sh ci/run.sh $TARGET;
