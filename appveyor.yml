@@ -1,0 +1,19 @@
+environment:
+  matrix:
+    - TARGET: i586-pc-windows-gnu
+    - TARGET: i686-pc-windows-gnu
+    - TARGET: i686-pc-windows-msvc
+    - TARGET: x86_64-pc-windows-msvc
+    - TARGET: x86_64-pc-windows-gnu
+
+install:
+  - ps: ci\install.ps1
+
+build: false
+
+test_script:
+  - ps: ci\run.ps1
+
+cache:
+  - target
+  - C:\Users\appveyor\.cargo\registry
