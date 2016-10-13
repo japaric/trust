@@ -1,0 +1,34 @@
+environment:
+  matrix:
+    - TARGET: i586-pc-windows-msvc
+    - TARGET: i686-pc-windows-gnu
+    - TARGET: i686-pc-windows-msvc
+    - TARGET: x86_64-pc-windows-gnu
+    - TARGET: x86_64-pc-windows-msvc
+
+matrix:
+  allow_failures:
+    # FIXME `gcc crate error: "Is `cl.exe` not installed?"
+    - TARGET: i586-pc-windows-msvc
+    # FIXME `gcc crate error: "ld: unrecognized option '--large-address-aware'"
+    - TARGET: i686-pc-windows-gnu
+
+install:
+  - ps: ci\install.ps1
+
+build: false
+
+test_script:
+  - cargo build --target %TARGET%
+  - cargo build --target %TARGET% --release
+  - cargo test --target %TARGET%
+  - cargo test --target %TARGET% --release
+
+cache:
+  - target
+  - C:\Users\appveyor\.cargo\registry
+
+branches:
+  only:
+    - auto
+    - try
