@@ -1,10 +1,10 @@
 environment:
   matrix:
-    - TARGET: i586-pc-windows-gnu
+    - TARGET: i586-pc-windows-msvc
     - TARGET: i686-pc-windows-gnu
     - TARGET: i686-pc-windows-msvc
-    - TARGET: x86_64-pc-windows-msvc
     - TARGET: x86_64-pc-windows-gnu
+    - TARGET: x86_64-pc-windows-msvc
 
 install:
   - ps: ci\install.ps1
