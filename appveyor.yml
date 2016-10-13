@@ -17,3 +17,8 @@ test_script:
 cache:
   - target
   - C:\Users\appveyor\.cargo\registry
+
+branches:
+  only:
+    - auto
+    - try
