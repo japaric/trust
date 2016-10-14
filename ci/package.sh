@@ -4,7 +4,7 @@ run() {
     local src_dir=$(pwd)\
           stage=$(mk_temp_dir)
     
-    cp target/release/$TARGET/hello $stage/
+    cp target/$TARGET/release/hello $stage/
 
     pushd $stage
     tar czf $src_dir/$CRATE_NAME-$TRAVIS_TAG-$TARGET.tar.gz *
