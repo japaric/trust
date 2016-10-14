@@ -42,6 +42,7 @@ deploy:
   on:
     RUST_VERSION: nightly
     appveyor_repo_tag: true
+    # TODO change back to master
     branch: try
 
 cache:
