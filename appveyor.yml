@@ -42,7 +42,7 @@ deploy:
   on:
     RUST_VERSION: nightly
     appveyor_repo_tag: true
-    branch: master
+    branch: try
 
 cache:
   - C:\Users\appveyor\.cargo\registry
