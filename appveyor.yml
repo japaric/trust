@@ -11,10 +11,8 @@ environment:
 
 matrix:
   allow_failures:
-    # FIXME `gcc crate error: "Is `cl.exe` not installed?"
+    # FIXME no rustc release for this target. Try cross compilation
     - TARGET: i586-pc-windows-msvc
-    # FIXME `gcc crate error: "ld: unrecognized option '--large-address-aware'"
-    - TARGET: i686-pc-windows-gnu
 
 install:
   - ps: ci\install.ps1
