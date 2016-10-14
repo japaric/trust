@@ -25,6 +25,9 @@ matrix:
     - env: TARGET=i686-unknown-linux-musl
     - env: TARGET=mips-unknown-linux-gnu
     - env: TARGET=mipsel-unknown-linux-gnu
+    - env: TARGET=powerpc-unknown-linux-gnu
+    - env: TARGET=powerpc64-unknown-linux-gnu
+    - env: TARGET=powerpc64le-unknown-linux-gnu
     - env: TARGET=x86_64-unknown-linux-musl
   allow_failures:
     # I have no idea why this is segfaulting under QEMU

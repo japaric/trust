@@ -8,5 +8,6 @@ RUN apt-get install -y --no-install-recommends \
     libc6-dev-ppc64el-cross \
     qemu-user-static
 ENV CARGO_TARGET_POWERPC64LE_UNKNOWN_LINUX_GNU_LINKER=powerpc64le-linux-gnu-gcc \
+    QEMU_CPU=POWER8 \
     QEMU_LD_PREFIX=/usr/powerpc64le-linux-gnu \
     RUST_TEST_THREADS=1
