@@ -1,3 +1,4 @@
+#[cfg(feature = "c")]
 pub fn hello() {
     extern {
         fn hello();
@@ -6,6 +7,11 @@ pub fn hello() {
     unsafe {
         hello()
     }
+}
+
+#[cfg(not(feature = "c"))]
+pub fn hello() {
+    println!("Hello, world!");
 }
 
 #[cfg(test)]

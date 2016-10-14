@@ -13,5 +13,7 @@ fn main() {
         .write_all(env::var("TARGET").unwrap().as_bytes())
         .unwrap();
 
-    gcc::compile_library("libhello.a", &["hello.c"]);
+    if env::var_os("CARGO_FEATURE_C").is_some() {
+        gcc::compile_library("libhello.a", &["hello.c"]);
+    }
 }
