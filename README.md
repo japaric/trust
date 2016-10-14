@@ -18,7 +18,7 @@
 - `mips-unknown-linux-gnu` (glibc-2.23)
 - `powerpc-unknown-linux-gnu` (glibc-2.19)
 - `powerpc64-unknown-linux-gnu` (glibc-2.23)
-- `powerpc64le-unknown-linux-gnu` (glibc-2.19)
+- `powerpc64le-unknown-linux-gnu` (glibc-2.23)
 - `x86_64-unknown-linux-gnu` (glibc-2.15)
 - `x86_64-unknown-linux-musl`
 
