@@ -35,6 +35,10 @@
 - `x86_64-pc-windows-gnu`
 - `x86_64-pc-windows-msvc`
 
+## Notes to self
+
+- Deploy only works with annotated tags
+
 ## License
 
 Licensed under either of
