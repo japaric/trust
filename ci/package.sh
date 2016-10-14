@@ -6,9 +6,9 @@ run() {
     
     cp target/$TARGET/release/hello $stage/
 
-    pushd $stage
+    cd $stage
     tar czf $src_dir/$CRATE_NAME-$TRAVIS_TAG-$TARGET.tar.gz *
-    popd
+    cd $src_dir
 
     rm -rf $stage
 }
