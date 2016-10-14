@@ -1,6 +1,5 @@
-[![Build Status][travis]](https://travis-ci.org/japaric/trust)
-
-[travis]: https://travis-ci.org/japaric/trust.svg?branch=master
+[![Travis](https://travis-ci.org/japaric/trust.svg?branch=master)](https://travis-ci.org/japaric/trust)
+[![Appveyor](https://ci.appveyor.com/api/projects/status/xybgv7qrarp9hmnb?svg=true)](https://ci.appveyor.com/project/japaric/trust)
 
 # `trust`
 
