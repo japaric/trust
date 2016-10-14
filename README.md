@@ -6,6 +6,8 @@
 
 ## Targets
 
+### Linux
+
 - `aarch64-unknown-linux-gnu` (glibc-2.19)
 - `arm-unknown-linux-gnueabi` (glibc-2.15)
 - `arm-unknown-linux-gnueabihf` (glibc-2.15)
@@ -20,6 +22,19 @@
 - `powerpc64le-unknown-linux-gnu` (glibc-2.19)
 - `x86_64-unknown-linux-gnu` (glibc-2.15)
 - `x86_64-unknown-linux-musl`
+
+### macOS
+
+- `i686-apple-darwin`
+- `x86_64-apple-darwin`
+
+### Windows
+
+- `i586-pc-windows-msvc`
+- `i686-pc-windows-gnu`
+- `i686-pc-windows-msvc`
+- `x86_64-pc-windows-gnu`
+- `x86_64-pc-windows-msvc`
 
 ## License
 
