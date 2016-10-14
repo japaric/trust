@@ -10,3 +10,7 @@ gcc = "0.3.35"
 [dependencies]
 # Just to test 'cache: cargo'
 clap = "2.13.0"
+
+[features]
+c = []
+default = ["c"]
