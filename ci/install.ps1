@@ -13,7 +13,7 @@ if ($Env:TARGET -Match 'gnu') {
 [Net.ServicePointManager]::SecurityProtocol = 'Ssl3, Tls, Tls12'
 Start-FileDownload 'https://win.rustup.rs' 'rustup-init.exe'
 
-.\rustup-init --default-host $Env:HOST --default-toolchain nightly -y
+.\rustup-init --default-host $Env:HOST --default-toolchain $Env:RUST_VERSION -y
 
 $Env:PATH = 'C:\Users\appveyor\.cargo\bin;' + $Env:PATH
 

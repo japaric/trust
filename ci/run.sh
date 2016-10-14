@@ -1,12 +1,23 @@
 set -ex
 
-run() {
-    local target=$1
+test_mode() {
+    cargo test --target $TARGET
+    cargo test --target $TARGET --release
 
-    cargo test --target $target
-    cargo test --target $target --release
-    cargo run --target $target
-    cargo run --target $target --release
+    cargo run --target $TARGET
+    cargo run --target $TARGET --release
 }
 
-run $1
+deploy_mode() {
+    cargo rustc --target $TARGET --release --bin hello -- -C lto
+}
+
+run() {
+    if [ -z $TRAVIS_TAG ]; then
+        test_mode
+    else
+        deploy_mode
+    fi
+}
+
+run

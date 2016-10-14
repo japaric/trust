@@ -5,7 +5,10 @@ rust: nightly
 services: docker
 sudo: required
 
-env: TARGET=x86_64-unknown-linux-gnu
+env:
+  global:
+   - CRATE_NAME=trust
+   - TARGET=x86_64-unknown-linux-gnu
 
 matrix:
   include:
@@ -44,10 +47,25 @@ script:
   - if [[ $TRAVIS_OS_NAME = linux ]]; then
       sh ci/run-docker.sh $TARGET;
     else
-      sh ci/run.sh $TARGET;
+      sh ci/run.sh;
     fi
   # Travis can't cache files that are not readable by "others"
   - chmod -R a+r $HOME/.cargo
+
+before_deploy:
+  - sh ci/package.sh $TARGET
+
+deploy:
+  provider: releases
+  api_key:
+    secure: NOxAx14oz6c+OH5slvZ9M6ziylDfTV6BdxRrW/Cq0Vg+ICfIjC5ZCgmPXXiPlZfDbaixViUE27h5USmFphKaqh8E0wkXbdpyG+cUbh+tZ2uozkooFf3NLRYztYh7915PGX+dHIOmt14o90mH4KDRboNHQJD67RQFIq9IE6klQ4QXIY/9j69NM2BUBsS179/Nd2KxA45kVRXAaphaaxSuPrTQZcyFTrZ3DfVhwfUSQlC8GJ8BjHerMEl+qzshnj1omeWhMeZztNH1KFsIHC+XWZEbRAoxy959nd1InStDNlAERQgyHGMNTLW8L/Qy6H9VAXVlpsxIeX7ZvLGfs4PdNC80nCZlcaHrQX4jJJcT2TmaahPZtOasHdbjEL6TRojlPHb6PH6aCBsdub9HdTHf31zsnlErjuf8CkfZni+PU07pewE5F148/3lTuPquvto6HSrbCXotq77SstAQeiXNbc6KNvMTIjCB+LyTARckyeqyplTvn7jnR+muXbbPUhdsIw6+sw0qUUyZ16SBgtpQmwDH+zZaQe6sdTGAXcLHVs64u9CDZHgChfATQaS43KXZYjtcispWy4oPS25iZPUUD5Jwl3xTG8Azwi0ztvCJczs3eY5GaIosG3C+2zvUCtrDYyRdtPbYERSeVy/frPkJjQun9soioJ3WR1EsIgUB1PY=
+  file_glob: true
+  file: $CRATE_NAME-$TRAVIS_TAG-$TARGET.*
+  # don't delete the target directory
+  skip_cleanup: true
+  on:
+    condition: $TRAVIS_RUST_VERSION = nightly
+    tags: true
 
 branches:
   only:
