@@ -43,14 +43,15 @@ deploy:
     RUST_VERSION: nightly
     appveyor_repo_tag: true
     # TODO change back to master
-    branch: try
+    branch: releases
 
 cache:
   - C:\Users\appveyor\.cargo\registry
   - target
 
-# TODO uncomment
-# branches:
-  # only:
-    # - auto
-    # - try
+branches:
+  only:
+    # Release tags
+    - /^v\d+\.\d+\.\d+.*$/
+    - auto
+    - try
