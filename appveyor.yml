@@ -22,13 +22,17 @@ install:
 build: false
 
 test_script:
-  - if [%APPVEYOR_REPO_TAG%]==[false] (
+  # TODO releases -> master
+  - if [%APPVEYOR_REPO_BRANCH%]==releases (
+      if [%APPVEYOR_REPO_TAG%]==[true] (
+        cargo rustc --target %TARGET% --release --bin hello -- -C lto)
+      )
+    ) else (
       cargo build --target %TARGET% &&
       cargo build --target %TARGET% --release &&
       cargo test --target %TARGET% &&
       cargo test --target %TARGET% --release)
-    else (
-      cargo rustc --target %TARGET% --release --bin hello -- -C lto)
+    )
 
 before_deploy:
   - ps: ci\package.ps1
@@ -51,7 +55,9 @@ cache:
 
 branches:
   only:
-    # Release tags
-    - /^v\d+\.\d+\.\d+.*$/
     - auto
+    # Releases only
+    - master
     - try
+    # TODO remove. For testing only
+    - releases
