@@ -6,8 +6,9 @@ services: docker
 sudo: required
 
 env:
-  - CRATE_NAME=trust
-  - TARGET=x86_64-unknown-linux-gnu
+  global:
+   - CRATE_NAME=trust
+   - TARGET=x86_64-unknown-linux-gnu
 
 matrix:
   include:
