@@ -52,3 +52,7 @@ branches:
     - /^v\d+\.\d+\.\d+.*$/
     - auto
     - try
+
+notifications:
+  - provider: Email
+    on_build_success: false
