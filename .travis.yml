@@ -8,8 +8,7 @@ sudo: required
 env:
   global:
    - CRATE_NAME=trust
-
-env: TARGET=x86_64-unknown-linux-gnu
+   - TARGET=x86_64-unknown-linux-gnu
 
 matrix:
   include:
