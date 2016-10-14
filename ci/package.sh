@@ -24,4 +24,4 @@ mk_temp_dir() {
     esac
 }
 
-run $1
+run
