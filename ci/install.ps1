@@ -7,7 +7,7 @@ If ($Env:TARGET -Match 'gnu') {
         $Env:PATH += ';C:\msys64\mingw32\bin'
     }
 } ElseIf ($Env:TARGET -Match 'i586') {
-    $Env:HOST = i686-pc-windows-msvc
+    $Env:HOST = 'i686-pc-windows-msvc'
 }
 
 [Net.ServicePointManager]::SecurityProtocol = 'Ssl3, Tls, Tls12'
