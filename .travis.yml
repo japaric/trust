@@ -46,7 +46,7 @@ script:
   - if [[ $TRAVIS_OS_NAME = linux ]]; then
       sh ci/run-docker.sh $TARGET;
     else
-      sh ci/run.sh
+      sh ci/run.sh;
     fi
   # Travis can't cache files that are not readable by "others"
   - chmod -R a+r $HOME/.cargo
