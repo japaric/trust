@@ -7,8 +7,8 @@ sudo: required
 
 env:
   global:
-   - CRATE_NAME=trust
-   - TARGET=x86_64-unknown-linux-gnu
+    - CRATE_NAME=trust
+    - TARGET=x86_64-unknown-linux-gnu
 
 matrix:
   include:
@@ -42,7 +42,7 @@ matrix:
 install:
   # `std for cross-compilation
   - curl https://static.rust-lang.org/rustup.sh |
-    sh -s -- --add-target=$TARGET --disable-sudo -y --prefix=`rustc --print sysroot` 
+    sh -s -- --add-target=$TARGET --disable-sudo -y --prefix=`rustc --print sysroot`
   # For transparent QEMU user emulation
   - test $TRAVIS_OS_NAME = osx ||
     docker run --privileged --rm -it ubuntu:16.04 sh -c
