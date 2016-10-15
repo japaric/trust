@@ -48,6 +48,11 @@ Each Linux target is tested inside a Docker container.
 ## Notes to self
 
 - Deploy only works with annotated tags
+- Linux: If testing only, it makes sense to use the latest available QEMU i.e. the latest Ubuntu
+  version
+- Linux: If building binaries, you want to use the oldest glibc possible for maximum compatibility
+  of your binaries; i.e. you want to use the oldest Ubuntu
+- Linux: If QEMU is crashing while "cross" testing, the easiest fix is to use a newer QEMU
 
 ## License
 
