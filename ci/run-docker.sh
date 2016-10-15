@@ -12,6 +12,7 @@ run() {
            -e CARGO_HOME=/cargo \
            -e CARGO_TARGET_DIR=/target \
            -e TARGET=$1 \
+           -e TRAVIS_OS_NAME=linux \
            -e TRAVIS_RUST_VERSION=$TRAVIS_RUST_VERSION \
            -e TRAVIS_TAG=$TRAVIS_TAG \
            -e USER=$USER \
