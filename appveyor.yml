@@ -9,22 +9,26 @@ environment:
     - TARGET: x86_64-pc-windows-gnu
     - TARGET: x86_64-pc-windows-msvc
 
-matrix:
-  allow_failures:
-    # FIXME no rustc release for this target. Try cross compilation
-    - TARGET: i586-pc-windows-msvc
-
 install:
   - ps: ci\install.ps1
 
 build: false
 
 test_script:
+  # NOTE(no-default-features) `gcc` doesn't work out of the box for the i586-msvc target
+  # cf. alexcrichton/gcc-rs#108
   - if [%APPVEYOR_REPO_TAG%]==[false] (
-      cargo build --target %TARGET% &&
-      cargo build --target %TARGET% --release &&
-      cargo test --target %TARGET% &&
-      cargo test --target %TARGET% --release
+      if [%TARGET%]==[i586-pc-windows-msvc] (
+        cargo build --no-default-features --target %TARGET% &&
+        cargo build --no-default-features --target %TARGET% --release &&
+        cargo test --no-default-features --target %TARGET% &&
+        cargo test --no-default-features --target %TARGET% --release
+      ) else (
+        cargo build --target %TARGET% &&
+        cargo build --target %TARGET% --release &&
+        cargo test --target %TARGET% &&
+        cargo test --target %TARGET% --release
+      )
     ) else (
       cargo rustc --target %TARGET% --release --bin hello -- -C lto
     )
@@ -52,3 +56,7 @@ branches:
     - /^v\d+\.\d+\.\d+.*$/
     - auto
     - try
+
+notifications:
+  - provider: Email
+    on_build_success: false
