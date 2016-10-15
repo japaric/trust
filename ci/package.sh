@@ -3,7 +3,7 @@ set -ex
 run() {
     local src_dir=$(pwd)\
           stage=$(mk_temp_dir)
-    
+
     cp target/$TARGET/release/hello $stage/
 
     cd $stage
