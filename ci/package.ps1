@@ -1,5 +1,3 @@
-Set-PSDebug -Trace 1
-
 $SRC_DIR = $PWD.Path
 $STAGE = [System.Guid]::NewGuid().ToString()
 
