@@ -7,20 +7,30 @@
 
 ### Linux
 
-- `aarch64-unknown-linux-gnu` (glibc-2.19)
-- `arm-unknown-linux-gnueabi` (glibc-2.15)
-- `arm-unknown-linux-gnueabihf` (glibc-2.15)
-- `armv7-unknown-linux-gnueabihf` (glibc-2.15)
-- `i586-unknown-linux-gnu` (glibc-2.15)
-- `i686-unknown-linux-gnu` (glibc-2.15)
-- `i686-unknown-linux-musl`
-- `mipsel-unknown-linux-gnu` (glibc-2.23)
-- `mips-unknown-linux-gnu` (glibc-2.23)
-- `powerpc-unknown-linux-gnu` (glibc-2.19)
-- `powerpc64-unknown-linux-gnu` (glibc-2.23)
-- `powerpc64le-unknown-linux-gnu` (glibc-2.23)
-- `x86_64-unknown-linux-gnu` (glibc-2.15)
-- `x86_64-unknown-linux-musl`
+Each Linux target is tested inside a Docker container.
+
+| TARGET                            | OS (Ubuntu) | Glibc |
+|-----------------------------------|-------------|-------|
+| `aarch64-unknown-linux-gnu`       |       14.04 |  2.19 |
+| `arm-unknown-linux-gnueabi`       |       12.04 |  2.15 |
+| `arm-unknown-linux-gnueabihf`     |       12.04 |  2.15 |
+| `arm-unknown-linux-musleabi`      |       12.04 |  2.15 |
+| `arm-unknown-linux-musleabihf`    |       12.04 |  2.15 |
+| `armv7-unknown-linux-gnueabihf`   |       12.04 |  2.15 |
+| `armv7-unknown-linux-musleabihf`  |       12.04 |  2.15 |
+| `i586-unknown-linux-gnu`          |       14.04 |  2.19 |
+| `i686-unknown-linux-gnu`          |       12.04 |  2.15 |
+| `i686-unknown-linux-musl`         |       16.04 |   N/A |
+| `mips-unknown-linux-gnu`          |       16.04 |  2.23 |
+| `mips64-unknown-linux-gnuabi64`   |       16.04 |  2.23 |
+| `mips64el-unknown-linux-gnuabi64` |       16.04 |  2.23 |
+| `mipsel-unknown-linux-gnu`        |       16.04 |  2.23 |
+| `powerpc-unknown-linux-gnu`       |       14.04 |  2.19 |
+| `powerpc64-unknown-linux-gnu`     |       16.04 |  2.23 |
+| `powerpc64le-unknown-linux-gnu`   |       16.04 |  2.23 |
+| `s390x-unknown-linux-gnu`         |       16.04 |  2.23 |
+| `x86_64-unknown-linux-gnu`        |       12.04 |  2.15 |
+| `x86_64-unknown-linux-musl`       |       16.04 |   N/A |
 
 ### macOS
 
