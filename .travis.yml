@@ -1,6 +1,7 @@
 cache: cargo
 dist: trusty
 language: rust
+# NOTE This is default but can be override on a target by target basis in the "matrix" below
 rust: nightly
 services: docker
 sudo: required
