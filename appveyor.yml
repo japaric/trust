@@ -26,7 +26,9 @@ test_script:
       cargo build --target %TARGET% &&
       cargo build --target %TARGET% --release &&
       cargo test --target %TARGET% &&
-      cargo test --target %TARGET% --release
+      cargo test --target %TARGET% --release &&
+      cargo run --target %TARGET% &&
+      cargo run --target %TARGET% --release
     ) else (
       if [%RUST_VERSION%]==[%DEPLOY_VERSION%] (
         cargo rustc --target %TARGET% --release --bin hello -- -C lto
