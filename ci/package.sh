@@ -1,8 +1,17 @@
 set -ex
 
 run() {
-    local src_dir=$(pwd)\
-          stage=$(mk_temp_dir)
+    local src_dir=$(pwd) \
+          stage=
+
+    case $TRAVIS_OS_NAME in
+        linux)
+            stage=$(mktemp -d)
+            ;;
+        osx)
+            stage=$(mktemp -d -t tmp)
+            ;;
+    esac
 
     cp target/$TARGET/release/hello $stage/
 
@@ -11,17 +20,6 @@ run() {
     cd $src_dir
 
     rm -rf $stage
-}
-
-mk_temp_dir() {
-    case $TRAVIS_OS_NAME in
-        linux)
-            mktemp -d
-            ;;
-        osx)
-            mktemp -d -t tmp
-            ;;
-    esac
 }
 
 run

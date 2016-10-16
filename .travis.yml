@@ -8,6 +8,7 @@ sudo: required
 env:
   global:
     - CRATE_NAME=trust
+    - DEPLOY_VERSION=nightly
     - TARGET=x86_64-unknown-linux-gnu
 
 matrix:
@@ -39,24 +40,40 @@ matrix:
     - env: TARGET=s390x-unknown-linux-gnu
     - env: TARGET=x86_64-unknown-linux-musl
 
+    # just to check these build jobs are skipped during deploys
+    - env: TARGET=x86_64-apple-darwin
+      os: osx
+      rust: stable
+    - env: TARGET=x86_64-unknown-linux-gnu
+      rust: stable
+    - env: TARGET=x86_64-unknown-linux-musl
+      rust: stable
+
 install:
-  # `std for cross-compilation
-  - curl https://static.rust-lang.org/rustup.sh |
-    sh -s -- --add-target=$TARGET --disable-sudo -y --prefix=`rustc --print sysroot`
-  # For transparent QEMU user emulation
-  - test $TRAVIS_OS_NAME = osx ||
-    docker run --privileged --rm -it ubuntu:16.04 sh -c
-    "apt-get update && apt-get install -qq binfmt-support qemu-user-static"
+  - if [ -z $TRAVIS_TAG ] || [ $TRAVIS_RUST_VERSION = $DEPLOY_VERSION ]; then
+      # `std for cross-compilation
+      curl https://static.rust-lang.org/rustup.sh |
+      sh -s -- --add-target=$TARGET --disable-sudo -y --prefix=`rustc --print sysroot`;
+
+      # For transparent QEMU user emulation
+      test $TRAVIS_OS_NAME = osx ||
+      docker run --privileged --rm -it ubuntu:16.04 sh -c
+      "apt-get update && apt-get install -qq binfmt-support qemu-user-static";
+    fi
 
 script:
-  - cargo generate-lockfile
-  - if [[ $TRAVIS_OS_NAME = linux ]]; then
-      sh ci/run-docker.sh $TARGET;
-    else
-      sh ci/run.sh;
+  - if [ -z $TRAVIS_TAG ] || [ $TRAVIS_RUST_VERSION = $DEPLOY_VERSION ]; then
+      cargo generate-lockfile;
+
+      if [[ $TRAVIS_OS_NAME = linux ]]; then
+        sh ci/run-docker.sh $TARGET;
+      else
+        sh ci/run.sh;
+      fi;
+
+      # Travis can't cache files that are not readable by "others"
+      chmod -R a+r $HOME/.cargo;
     fi
-  # Travis can't cache files that are not readable by "others"
-  - chmod -R a+r $HOME/.cargo
 
 before_deploy:
   - sh ci/package.sh $TARGET
@@ -70,7 +87,7 @@ deploy:
   # don't delete the target directory
   skip_cleanup: true
   on:
-    condition: $TRAVIS_RUST_VERSION = nightly
+    condition: $TRAVIS_RUST_VERSION = $DEPLOY_VERSION
     tags: true
 
 branches:

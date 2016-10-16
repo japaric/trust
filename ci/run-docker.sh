@@ -11,6 +11,7 @@ run() {
            --user $(id -u):$(id -g) \
            -e CARGO_HOME=/cargo \
            -e CARGO_TARGET_DIR=/target \
+           -e DEPLOY_VERSION=$DEPLOY_VERSION \
            -e TARGET=$1 \
            -e TRAVIS_OS_NAME=linux \
            -e TRAVIS_RUST_VERSION=$TRAVIS_RUST_VERSION \

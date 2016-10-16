@@ -1,6 +1,7 @@
 environment:
   global:
     CRATE_NAME: trust
+    DEPLOY_VERSION: nightly
     RUST_VERSION: nightly
   matrix:
     - TARGET: i586-pc-windows-msvc
@@ -30,7 +31,9 @@ test_script:
         cargo test --target %TARGET% --release
       )
     ) else (
-      cargo rustc --target %TARGET% --release --bin hello -- -C lto
+      if [%RUST_VERSION%]==[%DEPLOY_VERSION%] (
+        cargo rustc --target %TARGET% --release --bin hello -- -C lto
+      )
     )
 
 before_deploy:
@@ -43,7 +46,7 @@ deploy:
     secure: bQ29dEXeNG5VP2hQcWiZ1xsfmkGosteCDNeYu/cXTX4lOeghOp0qANpQXmGfal29
   provider: GitHub
   on:
-    RUST_VERSION: nightly
+    RUST_VERSION: %DEPLOY_VERSION%
     appveyor_repo_tag: true
 
 cache:
