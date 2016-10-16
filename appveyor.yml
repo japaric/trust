@@ -9,6 +9,11 @@ environment:
     - TARGET: i686-pc-windows-msvc
     - TARGET: x86_64-pc-windows-gnu
     - TARGET: x86_64-pc-windows-msvc
+    # Just to check these are skipped during deploys
+    - TARGET: x86_64-pc-windows-gnu
+      RUST_VERSION: stable
+    - TARGET: x86_64-pc-windows-msvc
+      RUST_VERSION: stable
 
 install:
   - ps: ci\install.ps1
@@ -46,7 +51,8 @@ deploy:
     secure: bQ29dEXeNG5VP2hQcWiZ1xsfmkGosteCDNeYu/cXTX4lOeghOp0qANpQXmGfal29
   provider: GitHub
   on:
-    RUST_VERSION: %DEPLOY_VERSION%
+    # NOTE this "version" must match %DEPLOY_VERSION% (see top)
+    RUST_VERSION: nightly
     appveyor_repo_tag: true
 
 cache:
