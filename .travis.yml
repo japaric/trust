@@ -14,6 +14,11 @@ env:
 
 matrix:
   include:
+    - env: TARGET=thumbv6m-none-eabi
+    - env: TARGET=thumbv7em-none-eabi
+    - env: TARGET=thumbv7em-none-eabihf
+    - env: TARGET=thumbv7m-none-eabi
+
     # OSX
     - env: TARGET=i686-apple-darwin
       os: osx
@@ -41,10 +46,6 @@ matrix:
     - env: TARGET=powerpc64-unknown-linux-gnu
     - env: TARGET=powerpc64le-unknown-linux-gnu
     - env: TARGET=s390x-unknown-linux-gnu
-    - env: TARGET=thumbv6m-none-eabi
-    - env: TARGET=thumbv7em-none-eabi
-    - env: TARGET=thumbv7em-none-eabihf
-    - env: TARGET=thumbv7m-none-eabi
     - env: TARGET=x86_64-unknown-linux-musl
 
     # just to check these build jobs are skipped during deploys
@@ -76,9 +77,9 @@ script:
       cargo generate-lockfile;
 
       if [[ $TRAVIS_OS_NAME = linux ]]; then
-        sh ci/run-docker.sh $TARGET;
+        sh ci/run-docker.sh $TARGET || exit 1;
       else
-        sh ci/run.sh;
+        sh ci/run.sh || exit 1;
       fi;
 
       chmod -R a+r $HOME/.cargo;
