@@ -25,15 +25,12 @@ need() {
     fi
 }
 
+# Dependencies
 need basename
 need curl
-need cut
-need grep
 need install
 need mkdir
 need mktemp
-need rev
-need rustc
 need tar
 
 force=false
@@ -67,6 +64,20 @@ while test $# -gt 1; do
     esac
     shift
 done
+
+# Optional dependencies
+if [ -z $crate ] || [ -z $tag ] || [ -z $target ]; then
+    need cut
+fi
+
+if [ -z $tag ]; then
+    need rev
+fi
+
+if [ -z $target ]; then
+    need grep
+    need rustc
+fi
 
 if [ -z $git ]; then
     err 'must specify a git repository using `--git`. Example: `install.sh --git japaric/xargo`'
