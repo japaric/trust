@@ -31,7 +31,8 @@ test_mode() {
 deploy_mode() {
     case $TARGET in
         thumbv*-none-eabi*)
-        ;;
+            xargo rustc $flags --release --bin hello -- -C lto
+            ;;
         *)
             cargo rustc $flags --release --bin hello -- -C lto
             ;;
