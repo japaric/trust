@@ -1,3 +1,5 @@
+#![cfg_attr(thumb, no_std)]
+
 #[cfg(feature = "c")]
 pub fn hello() {
     extern {

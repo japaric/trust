@@ -7,7 +7,7 @@ version = "0.1.0"
 [build-dependencies]
 gcc = { git = "https://github.com/alexcrichton/gcc-rs" }
 
-[dependencies]
+[target.'cfg(not(target_os = "none"))'.dependencies]
 # Just to test 'cache: cargo'
 clap = "2.13.0"
 
