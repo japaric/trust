@@ -39,6 +39,10 @@ matrix:
     - env: TARGET=powerpc64-unknown-linux-gnu
     - env: TARGET=powerpc64le-unknown-linux-gnu
     - env: TARGET=s390x-unknown-linux-gnu
+    - env: TARGET=thumbv6m-none-eabi
+    - env: TARGET=thumbv7em-none-eabi
+    - env: TARGET=thumbv7em-none-eabihf
+    - env: TARGET=thumbv7m-none-eabi
     - env: TARGET=x86_64-unknown-linux-musl
 
     # just to check these build jobs are skipped during deploys
@@ -54,8 +58,10 @@ install:
   # curl: `std for cross-compilation
   # docker: For transparent QEMU user emulation
   - if [ -z $TRAVIS_TAG ] || [ $TRAVIS_RUST_VERSION = $DEPLOY_VERSION ]; then
-      curl https://static.rust-lang.org/rustup.sh |
-      sh -s -- --add-target=$TARGET --disable-sudo -y --prefix=`rustc --print sysroot`;
+      case $TARGET in thumbv*-none-eabi*) ;; *)
+        curl https://static.rust-lang.org/rustup.sh |
+        sh -s -- --add-target=$TARGET --disable-sudo -y --prefix=`rustc --print sysroot`;;
+      esac;
 
       test $TRAVIS_OS_NAME = osx ||
       docker run --privileged --rm -it ubuntu:16.04 sh -c

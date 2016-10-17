@@ -16,4 +16,10 @@ fn main() {
     if env::var_os("CARGO_FEATURE_C").is_some() {
         gcc::compile_library("libhello.a", &["hello.c"]);
     }
+
+    let target = env::var("TARGET").unwrap();
+
+    if target.starts_with("thumb") {
+        println!("cargo:rustc-cfg=thumb");
+    }
 }

@@ -1,10 +1,20 @@
 set -ex
 
 test_mode() {
-    cargo build $flags
-    cargo build $flags --release
+    case $TARGET in
+        thumbv*-none-eabi*)
+            xargo build $flags
+            xargo build $flags --release
+            ;;
+        *)
+            cargo build $flags
+            cargo build $flags --release
+            ;;
+    esac
 
     case $TARGET in
+        thumbv*-none-eabi*)
+            ;;
         s390x-unknown-linux-gnu)
             cargo test $flags --no-run
             cargo test $flags --no-run --release
@@ -19,7 +29,13 @@ test_mode() {
 }
 
 deploy_mode() {
-    cargo rustc $flags --release --bin hello -- -C lto
+    case $TARGET in
+        thumbv*-none-eabi*)
+        ;;
+        *)
+            cargo rustc $flags --release --bin hello -- -C lto
+            ;;
+    esac
 }
 
 run() {
