@@ -19,13 +19,19 @@ Each Linux target is tested inside a Docker container.
 | `i686-unknown-linux-gnu`          |       12.04 |  2.15 |
 | `i686-unknown-linux-musl`         |       16.04 |   N/A |
 | `mips-unknown-linux-gnu`          |       16.04 |  2.23 |
+| `mips-unknown-linux-musl`         |       16.04 |   N/A |
 | `mips64-unknown-linux-gnuabi64`   |       16.04 |  2.23 |
 | `mips64el-unknown-linux-gnuabi64` |       16.04 |  2.23 |
 | `mipsel-unknown-linux-gnu`        |       16.04 |  2.23 |
+| `mipsel-unknown-linux-musl`       |       16.04 |   N/A |
 | `powerpc-unknown-linux-gnu`       |       14.04 |  2.19 |
 | `powerpc64-unknown-linux-gnu`     |       16.04 |  2.23 |
 | `powerpc64le-unknown-linux-gnu`   |       16.04 |  2.23 |
 | `s390x-unknown-linux-gnu`         |       16.04 |  2.23 |
+| `thumbv6m-none-eabi`              |       16.04 |   N/A |
+| `thumbv7em-none-eabi`             |       16.04 |   N/A |
+| `thumbv7em-none-eabihf`           |       16.04 |   N/A |
+| `thumbv7m-none-eabi`              |       16.04 |   N/A |
 | `x86_64-unknown-linux-gnu`        |       12.04 |  2.15 |
 | `x86_64-unknown-linux-musl`       |       16.04 |   N/A |
 
