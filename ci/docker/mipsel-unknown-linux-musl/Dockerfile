@@ -1,6 +1,6 @@
 FROM ubuntu:16.04
-RUN apt-get update
-RUN apt-get install -y --no-install-recommends \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
     bzip2 \
     ca-certificates \
     curl \

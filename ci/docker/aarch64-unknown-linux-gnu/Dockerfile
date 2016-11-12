@@ -1,6 +1,6 @@
 FROM ubuntu:14.04
-RUN apt-get update
-RUN apt-get install -y --no-install-recommends \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
     ca-certificates \
     gcc \
     gcc-aarch64-linux-gnu \
