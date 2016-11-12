@@ -118,7 +118,7 @@ url="$url/download/$tag/$crate-$tag-$target.tar.gz"
 td=$(mktemp -d || mktemp -d -t tmp)
 curl -sL $url | tar -C $td -xz
 
-for f in $(find $td -type f -executable); do
+for f in $(find $td -type f -perm 0755); do
     fn=$(basename $f)
 
     if [ -e "$dest/$fn" ] && [ $force = false ]; then
