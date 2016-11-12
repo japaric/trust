@@ -118,14 +118,14 @@ url="$url/download/$tag/$crate-$tag-$target.tar.gz"
 td=$(mktemp -d || mktemp -d -t tmp)
 curl -sL $url | tar -C $td -xz
 
-for f in $(find $td -type f -perm 0755); do
-    fn=$(basename $f)
+for f in $(ls $td); do
+    test -x $td/$f || continue
 
-    if [ -e "$dest/$fn" ] && [ $force = false ]; then
-        err "$fn already exists in $dest"
+    if [ -e "$dest/$f" ] && [ $force = false ]; then
+        err "$f already exists in $dest"
     else
         mkdir -p $dest
-        install -m 755 $f $dest
+        install -m 755 $td/$f $dest
     fi
 done
 
