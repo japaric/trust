@@ -60,7 +60,7 @@ install:
   # curl: `rustc` + Cargo
   # rustup: `rust-src` or `rust-std`
   # docker: For transparent QEMU user emulation
-  - if [ -z $TRAVIS_TAG ] || [ $TRAVIS_RUST_VERSION = $DEPLOY_VERSION ]; then
+  - if [ -z $TRAVIS_TAG ] && [ $TRAVIS_BRANCH != master ] || [ $TRAVIS_EVENT_TYPE = cron ]; then
       curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain $TRAVIS_RUST_VERSION;
 
       source ~/.cargo/env;
@@ -78,7 +78,7 @@ install:
 
 script:
   # chmod: Travis can't cache files that are not readable by "others"
-  - if [ -z $TRAVIS_TAG ] || [ $TRAVIS_RUST_VERSION = $DEPLOY_VERSION ]; then
+  - if [ -z $TRAVIS_TAG ] && [ $TRAVIS_BRANCH != master ] || [ $TRAVIS_EVENT_TYPE = cron ]; then
       cargo generate-lockfile;
 
       if [[ $TRAVIS_OS_NAME = linux ]]; then
@@ -110,6 +110,7 @@ branches:
     # Release tags
     - /^v\d+\.\d+\.\d+.*$/
     - auto
+    - master
     - try
 
 notifications:
