@@ -8,4 +8,4 @@ RUN apt-get update && \
     libc6-dev \
     libnewlib-dev
 RUN curl -LSfs https://japaric.github.io/trust/install.sh | \
-    sh -s -- --git japaric/xargo --tag v0.2.0 --target x86_64-unknown-linux-gnu --to /usr/bin
+    sh -s -- --git japaric/xargo --tag v0.2.3 --target x86_64-unknown-linux-gnu --to /usr/bin
