@@ -1,7 +1,7 @@
 set -ex
 
-run() {
-    local src_dir=$(pwd) \
+main() {
+    local src=$(pwd) \
           stage=
 
     case $TRAVIS_OS_NAME in
@@ -16,10 +16,10 @@ run() {
     cp target/$TARGET/release/hello $stage/
 
     cd $stage
-    tar czf $src_dir/$CRATE_NAME-$TRAVIS_TAG-$TARGET.tar.gz *
-    cd $src_dir
+    tar czf $src/$CRATE_NAME-$TRAVIS_TAG-$TARGET.tar.gz *
+    cd $src
 
     rm -rf $stage
 }
 
-run
+main
