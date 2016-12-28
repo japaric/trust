@@ -26,8 +26,6 @@ main() {
         elif [ $TRAVIS_RUST_VERSION = $DEPLOY_VERSION ]; then
             deploy_mode
         fi
-
-        chmod -R a+r $HOME/.cargo
     fi
 }
 

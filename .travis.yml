@@ -1,4 +1,3 @@
-cache: cargo
 dist: trusty
 language: rust
 # NOTE This is default but can be override on a target by target basis in the "matrix" below
@@ -15,10 +14,10 @@ env:
 matrix:
   include:
     # OSX
-    # - env: TARGET=i686-apple-darwin
-    #   os: osx
-    # - env: TARGET=x86_64-apple-darwin
-    #   os: osx
+    - env: TARGET=i686-apple-darwin
+      os: osx
+    - env: TARGET=x86_64-apple-darwin
+      os: osx
 
     # Linux
     - env: TARGET=aarch64-unknown-linux-gnu
@@ -52,7 +51,6 @@ install:
     fi
 
 script:
-  # chmod: Travis can't cache files that are not readable by "others"
   - bash ci/script.sh
 
 before_deploy:
@@ -69,6 +67,11 @@ deploy:
   on:
     condition: $TRAVIS_RUST_VERSION = $DEPLOY_VERSION
     tags: true
+
+cache: cargo
+before_cache:
+  # Travis can't cache files that are not readable by "others"
+  - chmod -R a+r $HOME/.cargo
 
 branches:
   only:
