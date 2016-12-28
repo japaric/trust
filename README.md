@@ -4,36 +4,21 @@
 
 ### Linux
 
-Each Linux target is tested inside a Docker container.
+Using [`cross`](https://github.com/japaric/cross)
 
-| TARGET                            | OS (Ubuntu) | Glibc |
-|-----------------------------------|-------------|-------|
-| `aarch64-unknown-linux-gnu`       |       14.04 |  2.19 |
-| `arm-unknown-linux-gnueabi`       |       12.04 |  2.15 |
-| `arm-unknown-linux-gnueabihf`     |       12.04 |  2.15 |
-| `arm-unknown-linux-musleabi`      |       12.04 |  2.15 |
-| `arm-unknown-linux-musleabihf`    |       12.04 |  2.15 |
-| `armv7-unknown-linux-gnueabihf`   |       12.04 |  2.15 |
-| `armv7-unknown-linux-musleabihf`  |       12.04 |  2.15 |
-| `i586-unknown-linux-gnu`          |       14.04 |  2.19 |
-| `i686-unknown-linux-gnu`          |       12.04 |  2.15 |
-| `i686-unknown-linux-musl`         |       16.04 |   N/A |
-| `mips-unknown-linux-gnu`          |       16.04 |  2.23 |
-| `mips-unknown-linux-musl`         |       16.04 |   N/A |
-| `mips64-unknown-linux-gnuabi64`   |       16.04 |  2.23 |
-| `mips64el-unknown-linux-gnuabi64` |       16.04 |  2.23 |
-| `mipsel-unknown-linux-gnu`        |       16.04 |  2.23 |
-| `mipsel-unknown-linux-musl`       |       16.04 |   N/A |
-| `powerpc-unknown-linux-gnu`       |       14.04 |  2.19 |
-| `powerpc64-unknown-linux-gnu`     |       16.04 |  2.23 |
-| `powerpc64le-unknown-linux-gnu`   |       16.04 |  2.23 |
-| `s390x-unknown-linux-gnu`         |       16.04 |  2.23 |
-| `thumbv6m-none-eabi`              |       16.04 |   N/A |
-| `thumbv7em-none-eabi`             |       16.04 |   N/A |
-| `thumbv7em-none-eabihf`           |       16.04 |   N/A |
-| `thumbv7m-none-eabi`              |       16.04 |   N/A |
-| `x86_64-unknown-linux-gnu`        |       12.04 |  2.15 |
-| `x86_64-unknown-linux-musl`       |       16.04 |   N/A |
+- `aarch64-unknown-linux-gnu`
+- `armv7-unknown-linux-gnueabihf`
+- `i686-unknown-linux-gnu`
+- `mips-unknown-linux-gnu`
+- `mips64-unknown-linux-gnuabi64`
+- `mips64el-unknown-linux-gnuabi64`
+- `mipsel-unknown-linux-gnu`
+- `powerpc-unknown-linux-gnu`
+- `powerpc64-unknown-linux-gnu`
+- `powerpc64le-unknown-linux-gnu`
+- `s390x-unknown-linux-gnu`
+- `x86_64-unknown-linux-gnu`
+- `x86_64-unknown-linux-musl`
 
 ### macOS
 
@@ -51,11 +36,14 @@ Each Linux target is tested inside a Docker container.
 ## Notes to self
 
 - Deploy only works with annotated tags
-- Linux: If testing only, it makes sense to use the latest available QEMU i.e. the latest Ubuntu
-  version
-- Linux: If building binaries, you want to use the oldest glibc possible for maximum compatibility
-  of your binaries; i.e. you want to use the oldest Ubuntu
-- Linux: If QEMU is crashing while "cross" testing, the easiest fix is to use a newer QEMU
+
+- Linux: If testing only, it makes sense to use the latest available QEMU i.e.
+  the latest Ubuntu version
+
+- Linux: If building binaries, you want to use the oldest glibc possible for
+  maximum compatibility of your binaries; i.e. you want to use the oldest Ubuntu
+- Linux: If QEMU is crashing while "cross" testing, the easiest fix is to use a
+  newer QEMU
 
 ## License
 
@@ -69,6 +57,6 @@ at your option.
 
 ### Contribution
 
-Unless you explicitly state otherwise, any contribution intentionally submitted for inclusion in the
-work by you, as defined in the Apache-2.0 license, shall be dual licensed as above, without any
-additional terms or conditions.
+Unless you explicitly state otherwise, any contribution intentionally submitted
+for inclusion in the work by you, as defined in the Apache-2.0 license, shall be
+dual licensed as above, without any additional terms or conditions.
