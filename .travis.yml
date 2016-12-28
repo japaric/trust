@@ -47,7 +47,7 @@ install:
 
       source ~/.cargo/env;
 
-      cargo install --git https://github.com/japaric/cross;
+      cargo install --git https://github.com/japaric/cross -f;
     fi
 
 script:
