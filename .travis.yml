@@ -33,9 +33,9 @@ matrix:
     - env: TARGET=s390x-unknown-linux-gnu
 
     # just to check these build jobs are skipped during deploys
-    # - env: TARGET=x86_64-apple-darwin
-    #   os: osx
-      # rust: stable
+    - env: TARGET=x86_64-apple-darwin
+      os: osx
+      rust: stable
     - env: TARGET=x86_64-unknown-linux-gnu
       rust: stable
 
