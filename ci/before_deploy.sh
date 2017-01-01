@@ -13,6 +13,8 @@ main() {
             ;;
     esac
 
+    test -f Cargo.lock || cargo generate-lockfile
+
     # TODO Update this to build the artifacts that matter to you
     cross rustc --bin hello --target $TARGET --release -- -C lto
 
