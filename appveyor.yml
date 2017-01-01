@@ -1,27 +1,56 @@
 environment:
   global:
+  # TODO This is the Rust channel that build jobs will use by default but can be
+  # overridden on a case by case basis down below
+    RUST_VERSION: stable
+
+    # TODO Update this to match the name of your project.
     CRATE_NAME: trust
-    DEPLOY_VERSION: nightly
-    # NOTE This is default but can be override on a target by target basis in the "matrix" below
-    RUST_VERSION: nightly
+
+    # TODO This is the channel that will be used to produce binary releases
+    DEPLOY_VERSION: stable
+
+  # TODO These are all the build jobs. Adjust as necessary. Comment out what you
+  # don't need
   matrix:
-    - TARGET: i586-pc-windows-msvc
+    # MinGW
     - TARGET: i686-pc-windows-gnu
+    - TARGET: x86_64-pc-windows-gnu
+
+    # MSVC
+    - TARGET: i586-pc-windows-msvc
     - TARGET: i686-pc-windows-msvc
-    - TARGET: x86_64-pc-windows-gnu
     - TARGET: x86_64-pc-windows-msvc
-    # Just to check these are skipped during deploys
+
+    # Testing other channels
     - TARGET: x86_64-pc-windows-gnu
-      RUST_VERSION: stable
+      RUST_VERSION: nightly
     - TARGET: x86_64-pc-windows-msvc
-      RUST_VERSION: stable
+      RUST_VERSION: nightly
 
 install:
-  - ps: ci\install.ps1
+  - ps: >-
+      If ($Env:TARGET -eq 'x86_64-pc-windows-gnu') {
+        $Env:PATH += ';C:\msys64\mingw64\bin'
+      } ElseIf ($Env:TARGET -eq 'i686-pc-windows-gnu') {
+        $Env:PATH += ';C:\msys64\mingw32\bin'
+      }
+  - curl -sSf -o rustup-init.exe https://win.rustup.rs/
+  - if [%TARGET%]==[i586-pc-windows-msvc] (
+      rustup-init.exe -y --default-host i686-pc-windows-msvc --default-toolchain %RUST_VERSION%
+    ) else (
+      rustup-init.exe -y --default-host %TARGET% --default-toolchain %RUST_VERSION%
+    )
+  - set PATH=%PATH%;C:\Users\appveyor\.cargo\bin
+  - if [%TARGET%]==[i586-pc-windows-msvc] (
+      rustup target add %TARGET%
+    )
+  - rustc -Vv
+  - cargo -V
 
-build: false
-
+# TODO This is the "test phase", tweak it as you see fit
 test_script:
+  # we don't run the "test phase" when doing deploys
   - if [%APPVEYOR_REPO_TAG%]==[false] (
       cargo build --target %TARGET% &&
       cargo build --target %TARGET% --release &&
@@ -29,25 +58,27 @@ test_script:
       cargo test --target %TARGET% --release &&
       cargo run --target %TARGET% &&
       cargo run --target %TARGET% --release
-    ) else (
-      if [%RUST_VERSION%]==[%DEPLOY_VERSION%] (
-        cargo rustc --target %TARGET% --release --bin hello -- -C lto
-      )
     )
 
 before_deploy:
-  - ps: ci\package.ps1
+  # TODO Update this to build the artifacts that matter to you
+  - cargo rustc --target %TARGET% --release --bin hello -- -C lto
+  - ps: ci\before_deploy.ps1
 
 deploy:
-  description: 'Windows release'
   artifact: /.*\.zip/
+  # TODO update `auth_token.secure`
+  # - Create a `public_repo` GitHub token. Go to: https://github.com/settings/tokens/new
+  # - Encrypt it. Go to https://ci.appveyor.com/tools/encrypt
+  # - Paste the output down here
   auth_token:
     secure: bQ29dEXeNG5VP2hQcWiZ1xsfmkGosteCDNeYu/cXTX4lOeghOp0qANpQXmGfal29
-  provider: GitHub
+  description: ''
   on:
     # NOTE this "version" must match %DEPLOY_VERSION% (see top)
     RUST_VERSION: nightly
     appveyor_repo_tag: true
+  provider: GitHub
 
 cache:
   - C:\Users\appveyor\.cargo\registry
@@ -57,9 +88,11 @@ branches:
   only:
     # Release tags
     - /^v\d+\.\d+\.\d+.*$/
-    - auto
-    - try
+    - master
 
 notifications:
   - provider: Email
     on_build_success: false
+
+# disable automatic builds
+build: false

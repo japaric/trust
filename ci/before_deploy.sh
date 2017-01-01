@@ -13,6 +13,10 @@ main() {
             ;;
     esac
 
+    # TODO Update this to build the artifacts that matter to you
+    cross rustc --bin hello --target $TARGET --release -- -C lto
+
+    # TODO Update this to package the right artifacts
     cp target/$TARGET/release/hello $stage/
 
     cd $stage

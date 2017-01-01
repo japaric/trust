@@ -1,28 +1,44 @@
 dist: trusty
 language: rust
-# NOTE This is default but can be override on a target by target basis in the "matrix" below
-rust: nightly
 services: docker
 sudo: required
 
+# TODO This is the Rust channel that build jobs will use by default but can be
+# overridden on a case by case basis down below
+rust: stable
+
 env:
   global:
+    # TODO Update this to match the name of your project.
     - CRATE_NAME=trust
-    - DEPLOY_VERSION=nightly
-    - TARGET=x86_64-unknown-linux-gnu
+
+    # TODO This is the channel that will be used to produce binary releases
+    - DEPLOY_VERSION=stable
+
+    # default job
+    - TARGET=x86_64-unknown-linux-musl
 
 matrix:
+  exclude:
+    - language: rust
+  # TODO These are all the build jobs. Adjust as necessary. Comment out what you
+  # don't need
   include:
+    # Linux
+    - env: TARGET=i686-unknown-linux-gnu
+    - env: TARGET=i686-unknown-linux-musl
+    - env: TARGET=x86_64-unknown-linux-gnu
+    # - env: TARGET=x86_64-unknown-linux-musl  # this is the default job
+
     # OSX
     - env: TARGET=i686-apple-darwin
       os: osx
     - env: TARGET=x86_64-apple-darwin
       os: osx
 
-    # Linux
+    # Other architectures
     - env: TARGET=aarch64-unknown-linux-gnu
     - env: TARGET=armv7-unknown-linux-gnueabihf
-    - env: TARGET=i686-unknown-linux-gnu
     - env: TARGET=mips-unknown-linux-gnu
     - env: TARGET=mips64-unknown-linux-gnuabi64
     - env: TARGET=mips64el-unknown-linux-gnuabi64
@@ -30,25 +46,18 @@ matrix:
     - env: TARGET=powerpc-unknown-linux-gnu
     - env: TARGET=powerpc64-unknown-linux-gnu
     - env: TARGET=powerpc64le-unknown-linux-gnu
-    - env: TARGET=s390x-unknown-linux-gnu
+    - env: TARGET=s390x-unknown-linux-gnu DISABLE_TESTS=1
 
-    # just to check these build jobs are skipped during deploys
+    # Testing other channels
+    - env: TARGET=x86_64-unknown-linux-gnu
+      rust: nightly
     - env: TARGET=x86_64-apple-darwin
       os: osx
-      rust: stable
-    - env: TARGET=x86_64-unknown-linux-gnu
-      rust: stable
+      rust: nightly
 
 install:
-  # curl: `rustc` + Cargo
-  - if [ -z $TRAVIS_TAG ] && [ $TRAVIS_BRANCH != master ] || [ $TRAVIS_EVENT_TYPE = cron ]; then
-      curl https://sh.rustup.rs -sSf |
-      sh -s -- -y --default-toolchain $TRAVIS_RUST_VERSION;
-
-      source ~/.cargo/env;
-
-      cargo install --git https://github.com/japaric/cross -f;
-    fi
+  - sh ci/install.sh
+  - source ~/.cargo/env || true
 
 script:
   - bash ci/script.sh
@@ -57,16 +66,19 @@ before_deploy:
   - sh ci/before_deploy.sh
 
 deploy:
-  provider: releases
+  # TODO update `api_key.secure`
+  # - Create a `public_repo` GitHub token. Go to: https://github.com/settings/tokens/new
+  # - Encrypt it: `travis encrypt GH_TOKEN=0123456789012345678901234567890123456789`
+  # - Paste the output down here
   api_key:
     secure: NOxAx14oz6c+OH5slvZ9M6ziylDfTV6BdxRrW/Cq0Vg+ICfIjC5ZCgmPXXiPlZfDbaixViUE27h5USmFphKaqh8E0wkXbdpyG+cUbh+tZ2uozkooFf3NLRYztYh7915PGX+dHIOmt14o90mH4KDRboNHQJD67RQFIq9IE6klQ4QXIY/9j69NM2BUBsS179/Nd2KxA45kVRXAaphaaxSuPrTQZcyFTrZ3DfVhwfUSQlC8GJ8BjHerMEl+qzshnj1omeWhMeZztNH1KFsIHC+XWZEbRAoxy959nd1InStDNlAERQgyHGMNTLW8L/Qy6H9VAXVlpsxIeX7ZvLGfs4PdNC80nCZlcaHrQX4jJJcT2TmaahPZtOasHdbjEL6TRojlPHb6PH6aCBsdub9HdTHf31zsnlErjuf8CkfZni+PU07pewE5F148/3lTuPquvto6HSrbCXotq77SstAQeiXNbc6KNvMTIjCB+LyTARckyeqyplTvn7jnR+muXbbPUhdsIw6+sw0qUUyZ16SBgtpQmwDH+zZaQe6sdTGAXcLHVs64u9CDZHgChfATQaS43KXZYjtcispWy4oPS25iZPUUD5Jwl3xTG8Azwi0ztvCJczs3eY5GaIosG3C+2zvUCtrDYyRdtPbYERSeVy/frPkJjQun9soioJ3WR1EsIgUB1PY=
   file_glob: true
   file: $CRATE_NAME-$TRAVIS_TAG-$TARGET.*
-  # don't delete the target directory
-  skip_cleanup: true
   on:
     condition: $TRAVIS_RUST_VERSION = $DEPLOY_VERSION
     tags: true
+  provider: releases
+  skip_cleanup: true
 
 cache: cargo
 before_cache:
@@ -75,11 +87,9 @@ before_cache:
 
 branches:
   only:
-    # Release tags
+    # release tags
     - /^v\d+\.\d+\.\d+.*$/
-    - auto
     - master
-    - try
 
 notifications:
   email:
