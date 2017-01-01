@@ -1,10 +1,15 @@
 set -ex
 
-test_mode() {
+# TODO This is the "test phase", tweak it as you see fit
+main() {
+    if [ ! -f Cargo.lock ]; then
+        cargo generate-lockfile
+    fi
+
     cross build --target $TARGET
     cross build --target $TARGET --release
 
-    if [ $TARGET != s390x-unknown-linux-gnu ]; then
+    if [ -z $DISABLE_TESTS ]; then
         cross test --target $TARGET
         cross test --target $TARGET --release
 
@@ -13,20 +18,7 @@ test_mode() {
     fi
 }
 
-deploy_mode() {
-    cross rustc --bin hello --target $TARGET --release -- -C lto
-}
-
-main() {
-    if [ -z $TRAVIS_TAG ] && [ $TRAVIS_BRANCH != master ] || [ $TRAVIS_EVENT_TYPE = cron ]; then
-        cargo generate-lockfile
-
-        if [ -z $TRAVIS_TAG ]; then
-            test_mode
-        elif [ $TRAVIS_RUST_VERSION = $DEPLOY_VERSION ]; then
-            deploy_mode
-        fi
-    fi
-}
-
-main
+# we don't run the "test phase" when doing deploys
+if [ -z $TRAVIS_TAG ]; then
+    main
+fi
