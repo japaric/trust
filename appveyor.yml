@@ -7,9 +7,6 @@ environment:
     # TODO Update this to match the name of your project.
     CRATE_NAME: trust
 
-    # TODO This is the channel that will be used to produce binary releases
-    DEPLOY_VERSION: stable
-
   # TODO These are all the build jobs. Adjust as necessary. Comment out what you
   # don't need
   matrix:
@@ -75,8 +72,8 @@ deploy:
     secure: bQ29dEXeNG5VP2hQcWiZ1xsfmkGosteCDNeYu/cXTX4lOeghOp0qANpQXmGfal29
   description: ''
   on:
-    # NOTE this "version" must match %DEPLOY_VERSION% (see top)
-    RUST_VERSION: nightly
+    # TODO This is the channel that will be used to produce binary releases
+    RUST_VERSION: stable
     appveyor_repo_tag: true
   provider: GitHub
 
