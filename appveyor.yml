@@ -8,7 +8,7 @@ environment:
     CRATE_NAME: trust
 
     # TODO This is the channel that will be used to produce binary releases
-    DEPLOY_VERSION: nightly
+    DEPLOY_VERSION: stable
 
   # TODO These are all the build jobs. Adjust as necessary. Comment out what you
   # don't need
@@ -30,10 +30,10 @@ environment:
 
 install:
   - if [%TARGET%]==[x86_64-pc-windows-gnu] (
-      set PATH=%PATH%;C:\msys64\mingw64\bin
+      set PATH="%PATH%;C:\msys64\mingw64\bin"
     ) else (
       if [%TARGET%]==[i686-pc-windows-gnu] (
-        set PATH=%PATH%;C:\msys64\mingw32\bin
+        set PATH="%PATH%;C:\msys64\mingw32\bin"
       )
     )
   - curl -sSf -o rustup-init.exe https://win.rustup.rs/
@@ -74,7 +74,7 @@ deploy:
   # - Paste the output down here
   auth_token:
     secure: bQ29dEXeNG5VP2hQcWiZ1xsfmkGosteCDNeYu/cXTX4lOeghOp0qANpQXmGfal29
-  description: 'Windows release'
+  description: ''
   on:
     # NOTE this "version" must match %DEPLOY_VERSION% (see top)
     RUST_VERSION: nightly

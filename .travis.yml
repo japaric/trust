@@ -17,7 +17,7 @@ env:
 
 matrix:
   exclude:
-    - dist: trusty
+    - language: rust
   # TODO These are all the build jobs. Adjust as necessary. Comment out what you
   # don't need
   include:
