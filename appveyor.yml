@@ -35,9 +35,10 @@ install:
       } ElseIf ($Env:TARGET -eq 'i686-unknown-linux-gnu') {
         $Env:PATH += ';C:\msys64\mingw32\bin'
       }
+  - echo %PATH%
   - curl -sSf -o rustup-init.exe https://win.rustup.rs/
   - if [%TARGET%]==[i586-pc-windows-mscv] (
-      rustup-init.exe -y --default-host i686-pc-windows-gnu --default-toolchain %RUST_VERSION%
+      rustup-init.exe -y --default-host i686-pc-windows-msvc --default-toolchain %RUST_VERSION%
     ) else (
       rustup-init.exe -y --default-host %TARGET% --default-toolchain %RUST_VERSION%
     )
@@ -52,11 +53,11 @@ install:
 test_script:
   # we don't run the "test phase" when doing deploys
   - if [%APPVEYOR_REPO_TAG%]==[false] (
-      cargo build --target %TARGET% &
-      cargo build --target %TARGET% --release &
-      cargo test --target %TARGET% &
-      cargo test --target %TARGET% --release &
-      cargo run --target %TARGET% &
+      cargo build --target %TARGET% &&
+      cargo build --target %TARGET% --release &&
+      cargo test --target %TARGET% &&
+      cargo test --target %TARGET% --release &&
+      cargo run --target %TARGET% &&
       cargo run --target %TARGET% --release
     )
 

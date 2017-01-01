@@ -15,6 +15,9 @@ env:
     # TODO This is the channel that will be used to produce binary releases
     - DEPLOY_VERSION=stable
 
+    # default job
+    - TARGET=x86_64-unknown-linux-musl
+
 matrix:
   exclude:
     - language: rust
@@ -25,7 +28,7 @@ matrix:
     - env: TARGET=i686-unknown-linux-gnu
     - env: TARGET=i686-unknown-linux-musl
     - env: TARGET=x86_64-unknown-linux-gnu
-    - env: TARGET=x86_64-unknown-linux-musl
+    # - env: TARGET=x86_64-unknown-linux-musl  # this is the default job
 
     # OSX
     - env: TARGET=i686-apple-darwin
