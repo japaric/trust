@@ -29,13 +29,11 @@ environment:
       RUST_VERSION: nightly
 
 install:
-  - if [%TARGET%]==[x86_64-pc-windows-gnu] (
-      set PATH="%PATH%;C:\msys64\mingw64\bin"
-    ) else (
-      if [%TARGET%]==[i686-pc-windows-gnu] (
-        set PATH="%PATH%;C:\msys64\mingw32\bin"
-      )
-    )
+  - ps: If ($Env:TARGET -eq 'x86_64-unknown-linux-gnu') {
+      $Env:PATH += ';C:\msys64\mingw64\bin'
+    } ElseIf ($Env:TARGET -eq 'i686-unknown-linux-gnu') {
+      $Env:PATH += ';C:\msys64\mingw32\bin'
+    }
   - curl -sSf -o rustup-init.exe https://win.rustup.rs/
   - if [%TARGET%]==[i586-pc-windows-mscv] (
       rustup-init.exe -y --default-host i686-pc-windows-gnu --default-toolchain %RUST_VERSION%
