@@ -16,7 +16,7 @@ env:
     - DEPLOY_VERSION=stable
 
     # default job
-    - TARGET=x86_64-unknown-linux-musl
+    - TARGET=x86_64-unknown-linux-gnu
 
 matrix:
   exclude:
@@ -27,8 +27,8 @@ matrix:
     # Linux
     - env: TARGET=i686-unknown-linux-gnu
     - env: TARGET=i686-unknown-linux-musl
-    - env: TARGET=x86_64-unknown-linux-gnu
-    # - env: TARGET=x86_64-unknown-linux-musl  # this is the default job
+    # - env: TARGET=x86_64-unknown-linux-gnu  # this is the default job
+    - env: TARGET=x86_64-unknown-linux-musl
 
     # OSX
     - env: TARGET=i686-apple-darwin
@@ -71,7 +71,7 @@ deploy:
   # - Encrypt it: `travis encrypt GH_TOKEN=0123456789012345678901234567890123456789`
   # - Paste the output down here
   api_key:
-    secure: NOxAx14oz6c+OH5slvZ9M6ziylDfTV6BdxRrW/Cq0Vg+ICfIjC5ZCgmPXXiPlZfDbaixViUE27h5USmFphKaqh8E0wkXbdpyG+cUbh+tZ2uozkooFf3NLRYztYh7915PGX+dHIOmt14o90mH4KDRboNHQJD67RQFIq9IE6klQ4QXIY/9j69NM2BUBsS179/Nd2KxA45kVRXAaphaaxSuPrTQZcyFTrZ3DfVhwfUSQlC8GJ8BjHerMEl+qzshnj1omeWhMeZztNH1KFsIHC+XWZEbRAoxy959nd1InStDNlAERQgyHGMNTLW8L/Qy6H9VAXVlpsxIeX7ZvLGfs4PdNC80nCZlcaHrQX4jJJcT2TmaahPZtOasHdbjEL6TRojlPHb6PH6aCBsdub9HdTHf31zsnlErjuf8CkfZni+PU07pewE5F148/3lTuPquvto6HSrbCXotq77SstAQeiXNbc6KNvMTIjCB+LyTARckyeqyplTvn7jnR+muXbbPUhdsIw6+sw0qUUyZ16SBgtpQmwDH+zZaQe6sdTGAXcLHVs64u9CDZHgChfATQaS43KXZYjtcispWy4oPS25iZPUUD5Jwl3xTG8Azwi0ztvCJczs3eY5GaIosG3C+2zvUCtrDYyRdtPbYERSeVy/frPkJjQun9soioJ3WR1EsIgUB1PY=
+    secure: A9v3PIzQQ4U08OHFmDPQzNXbNHEb7YHyLXCvMF+dXFuNSvhUNlmQYykxqUf3dvikhJL2/bsZ14umm7ni7fQh0tGwJ4+lPpNzYAcweGgNXnWvjTpY6ovuRbr3gs4/srkyxp/GBDmSW5L8wFN3hKCB+Lm0YnIPB9IA2afP8a30+8VTXT9nv7pNqGny4ilN41ycr4DZi3sQoXdbruy7ClN7gsWW/GUiudBccHVIjmTapOFKLwZHODaUl/1/RDWQzh+i+17e1ivXuJPktDSrqmHPTZ15OjklnHKd6t179ry6VkGRg4R/R/YukVIqGzeaXGWAwdAQ5gE8cjGZghJLVi2jkDBJ85z8MvT+zLZLyliiuhLc/X8y7mkE1n0FKFtXXzFVt0l7V1LaEKbIbiV6XX3jsir4qgkqWjPHBZqO5mkGNFS16Dmt30/ZtEPAzXiINFXbWuWrpQ/LZ4NSto8IMrRTcoyDbAga/KYxJiNIeVuCe1E9dbytDM7K0GLtxJTul/WnnSeI6r//EFyC4bxYjyHhCXaag4q14KM+ak4rB0QgxsYzyGuh2MqyCoVj8YJLjLdKnL/SV7W7LPD40xlxvI6VCYTVi2ILHwL6vCxpukXYteX0c5IAIWkISDKu6nNBEgmCHXXPSqYSrgE5g7/QoCQHI8++nR8iKe0s7TWxZRydby8=
   file_glob: true
   file: $CRATE_NAME-$TRAVIS_TAG-$TARGET.*
   on:

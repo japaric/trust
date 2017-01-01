@@ -2,9 +2,7 @@ set -ex
 
 # TODO This is the "test phase", tweak it as you see fit
 main() {
-    if [ ! -f Cargo.lock ]; then
-        cargo generate-lockfile
-    fi
+    test -f Cargo.lock || cargo generate-lockfile
 
     cross build --target $TARGET
     cross build --target $TARGET --release
