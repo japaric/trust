@@ -2,6 +2,24 @@
 
 set -e
 
+help() {
+    cat <<'EOF'
+Install a binary release of a Rust crate hosted on GitHub
+
+Usage:
+    install.sh [options]
+
+Options:
+    -h, --help      Display this message
+    --git SLUG      Get the crate from "https://github/$SLUG"
+    -f, --force     Force overwriting an existing binary
+    --crate NAME    Name of the crate to install (default <repository name>)
+    --tag TAG       Tag (version) of the crate to install (default <latest release>)
+    --target TARGET Install the release compiled for $TARGET (default <`rustc` host>)
+    --to LOCATION   Where to install the binary (default ~/.cargo/bin)
+EOF
+}
+
 say() {
     echo "install.sh: $1"
 }
@@ -25,27 +43,23 @@ need() {
     fi
 }
 
-# Dependencies
-need basename
-need curl
-need install
-need mkdir
-need mktemp
-need tar
-
 force=false
-while test $# -gt 1; do
+while test $# -gt 0; do
     case $1 in
         --crate)
             crate=$2
             shift
             ;;
+        --force | -f)
+            force=true
+            ;;
         --git)
             git=$2
             shift
             ;;
-        --force)
-            force=true
+        --help | -h)
+            help
+            exit 0
             ;;
         --tag)
             tag=$2
@@ -65,6 +79,14 @@ while test $# -gt 1; do
     shift
 done
 
+# Dependencies
+need basename
+need curl
+need install
+need mkdir
+need mktemp
+need tar
+
 # Optional dependencies
 if [ -z $crate ] || [ -z $tag ] || [ -z $target ]; then
     need cut
@@ -80,11 +102,11 @@ if [ -z $target ]; then
 fi
 
 if [ -z $git ]; then
-    err 'must specify a git repository using `--git`. Example: `install.sh --git japaric/xargo`'
+    err 'must specify a git repository using `--git`. Example: `install.sh --git japaric/cross`'
 fi
 
 url="https://github.com/$git"
-say_err "Git repository: $url"
+say_err "GitHub repository: $url"
 
 if [ -z $crate ]; then
     crate=$(echo $git | cut -d'/' -f2)
