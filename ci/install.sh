@@ -11,6 +11,8 @@ main() {
         target=x86_64-apple-darwin
     fi
 
+    # TODO At some point you'll probably want to use a newer release of `cross`,
+    # simply change the argument to `--tag`.
     curl -LSfs https://japaric.github.io/trust/install.sh | \
         sh -s -- \
            --force \

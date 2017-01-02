@@ -77,8 +77,13 @@ For more details about this installation script see `install.sh -h`
 
 ### Linux
 
-For more details about these targets,
-check [`cross`](https://github.com/japaric/cross).
+Courtesy of [`cross`](https://github.com/japaric/cross).
+
+If you run into any problem with any of these targets, report them
+to [`cross`'s issue tracker](https://github.com/japaric/cross/issues) but first
+check if using a newer release (see `ci/install.sh`)
+would
+[fix your problem](https://github.com/japaric/cross/blob/master/CHANGELOG.md).
 
 - `i686-unknown-linux-gnu`
 
