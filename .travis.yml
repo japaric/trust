@@ -19,8 +19,6 @@ env:
     - TARGET=x86_64-unknown-linux-gnu
 
 matrix:
-  exclude:
-    - language: rust
   # TODO These are all the build jobs. Adjust as necessary. Comment out what you
   # don't need
   include:
