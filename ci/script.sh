@@ -1,3 +1,5 @@
+# This script takes care of testing your crate
+
 set -ex
 
 # TODO This is the "test phase", tweak it as you see fit

@@ -1,49 +1,130 @@
 # `trust`
 
-## Targets
+> Travis CI and AppVeyor template to test your Rust crate on 5 architectures
+> and publish [binary releases] of it for Linux, macOS and Windows
+
+[binary releases]: https://github.com/japaric/trust/releases
+
+### Features
+
+- CI test your crate (library or binary) on Linux, macOS and Windows and on more
+  than just the x86 architecture.
+
+- Cargo artifacts are cached and reused between CI builds.
+
+- "Deploys": Publish binary releases of your application by just pushing a new
+  (Git) tag.
+
+## Requirements
+
+- Your crate must be hosted on GitHub (free).
+
+- A [Travis CI](https://travis-ci.org/) account (free).
+
+- An [AppVeyor](https://www.appveyor.com/) account (free).
+
+## How-to
+
+### Use this template
+
+Copy the `ci` directory, and the `.travis.yml` and `appveyor.yml` files into the
+repository where you host your Rust crate.
+
+You'll have to adjust those files to meet your needs. Just look inside those
+files for comments that start with the word `TODO`; they'll tell you want needs
+to be changed.
+
+This is an overview of what must / can be changed:
+
+- The GitHub token used for deploys.
+
+- The list of test targets. Trim it down to reduce test times.
+
+- The Rust channel used for testing / deploys.
+
+- The "test phase". Tweak how your crate is tested.
+
+- the "package phase". Tweak what goes into the release tarball / zipfile.
+
+### Generate binary releases
+
+You only need to push an **annotated** tag to kick off the build process.
+
+```
+# Optional: Publish a new version of your crate to crates.io
+$ cargo publish
+
+$ git tag -a $TAG
+
+$ git push origin $TAG
+```
+
+### Use the binary releases on Travis CI
+
+There's
+an [`install.sh`](https://github.com/japaric/trust/blob/gh-pages/install.sh)
+script that you can use to quickly install a binary release produced using this
+CI template.
+
+```
+$ curl -LSfs https://japaric.github.io/trust/install.sh | \
+    sh -s -- --git japaric/cross
+```
+
+For more details about this installation script see `install.sh -h`
+
+## Supported targets
 
 ### Linux
 
-Using [`cross`](https://github.com/japaric/cross)
+For more details about these targets,
+check [`cross`](https://github.com/japaric/cross).
+
+- `i686-unknown-linux-gnu`
+
+- `i686-unknown-linux-musl`
+
+- `x86_64-unknown-linux-gnu`
+
+- `x86_64-unknown-linux-musl`
 
 - `aarch64-unknown-linux-gnu`
+
 - `armv7-unknown-linux-gnueabihf`
-- `i686-unknown-linux-gnu`
+
 - `mips-unknown-linux-gnu`
+
 - `mips64-unknown-linux-gnuabi64`
+
 - `mips64el-unknown-linux-gnuabi64`
+
 - `mipsel-unknown-linux-gnu`
+
 - `powerpc-unknown-linux-gnu`
+
 - `powerpc64-unknown-linux-gnu`
+
 - `powerpc64le-unknown-linux-gnu`
+
 - `s390x-unknown-linux-gnu`
-- `x86_64-unknown-linux-gnu`
-- `x86_64-unknown-linux-musl`
 
 ### macOS
 
 - `i686-apple-darwin`
+
 - `x86_64-apple-darwin`
 
-### Windows
+### Windows (MinGW)
 
-- `i586-pc-windows-msvc`
 - `i686-pc-windows-gnu`
-- `i686-pc-windows-msvc`
+
 - `x86_64-pc-windows-gnu`
+
+### Windows (MSVC)
+
+- `i686-pc-windows-msvc`
+
 - `x86_64-pc-windows-msvc`
-
-## Notes to self
-
-- Deploy only works with annotated tags
-
-- Linux: If testing only, it makes sense to use the latest available QEMU i.e.
-  the latest Ubuntu version
-
-- Linux: If building binaries, you want to use the oldest glibc possible for
-  maximum compatibility of your binaries; i.e. you want to use the oldest Ubuntu
-- Linux: If QEMU is crashing while "cross" testing, the easiest fix is to use a
-  newer QEMU
 
 ## License
 
