@@ -15,7 +15,6 @@ environment:
     - TARGET: x86_64-pc-windows-gnu
 
     # MSVC
-    - TARGET: i586-pc-windows-msvc
     - TARGET: i686-pc-windows-msvc
     - TARGET: x86_64-pc-windows-msvc
 
@@ -33,15 +32,8 @@ install:
         $Env:PATH += ';C:\msys64\mingw32\bin'
       }
   - curl -sSf -o rustup-init.exe https://win.rustup.rs/
-  - if [%TARGET%]==[i586-pc-windows-msvc] (
-      rustup-init.exe -y --default-host i686-pc-windows-msvc --default-toolchain %RUST_VERSION%
-    ) else (
-      rustup-init.exe -y --default-host %TARGET% --default-toolchain %RUST_VERSION%
-    )
+  - rustup-init.exe -y --default-host %TARGET% --default-toolchain %RUST_VERSION%
   - set PATH=%PATH%;C:\Users\appveyor\.cargo\bin
-  - if [%TARGET%]==[i586-pc-windows-msvc] (
-      rustup target add %TARGET%
-    )
   - rustc -Vv
   - cargo -V
 
