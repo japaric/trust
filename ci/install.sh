@@ -17,7 +17,7 @@ main() {
         sh -s -- \
            --force \
            --git japaric/cross \
-           --tag v0.1.3 \
+           --tag v0.1.4 \
            --target $target
 }
 
