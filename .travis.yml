@@ -12,9 +12,6 @@ env:
     # TODO Update this to match the name of your project.
     - CRATE_NAME=trust
 
-    # TODO This is the channel that will be used to produce binary releases
-    - DEPLOY_VERSION=stable
-
     # default job
     - TARGET=x86_64-unknown-linux-gnu
 
@@ -78,7 +75,11 @@ deploy:
   file_glob: true
   file: $CRATE_NAME-$TRAVIS_TAG-$TARGET.*
   on:
-    condition: $TRAVIS_RUST_VERSION = $DEPLOY_VERSION
+    # TODO Here you can pick which targets will generate binary releases
+    # In this example, there are some targets that are tested using the stable
+    # and nightly channels. This condition makes sure there is only one release
+    # for such targets and that's generated using the stable channel
+    condition: $TRAVIS_RUST_VERSION = stable
     tags: true
   provider: releases
   skip_cleanup: true
