@@ -73,6 +73,41 @@ $ curl -LSfs https://japaric.github.io/trust/install.sh | \
 
 For more details about this installation script see `install.sh -h`
 
+### How to disable deploys?
+
+If you don't want to generate binary releases at all, perhaps because your Cargo
+project is a library or you only want to test your project, then you can simply
+change `deploy.on.condition`, in `.travis.yml`, and `deploy.on`, in
+`appveyor.yml`, to always be false. For example:
+
+``` yml
+# .travis.yml
+deploy:
+  on:
+    condition: $DEPLOY = never
+```
+
+### How to upgrade your CI configuration?
+
+First, figure out which version of the trust template you are using. The version
+is written in the header of the `.travis.yml` and `appveyor.yml` files. If
+there's no header, that means you are using version `v0.1.0`.
+
+Next, look at the [change log](CHANGELOG.md) to check if there's a new release
+and to learn, at a high level, how the template has changed: what has been
+fixed, what has been added, etc.
+
+If it makes sense for you to upgrade, you can see the required "code" changes by
+looking at the "diff" between the version you are using and the version you are
+going to upgrade to. For example:
+
+https://github.com/japaric/trust/compare/v0.1.0...v0.1.1
+
+As for the upgrade itself, GitHub can generate a patch from the above diff that
+then you can apply to your repository with `git am` or similar:
+
+https://github.com/japaric/trust/compare/v0.1.0...v0.1.1.patch
+
 ## Supported targets
 
 ### Linux

@@ -2,7 +2,7 @@
 authors = ["Jorge Aparicio <japaricious@gmail.com>"]
 build = "build.rs"
 name = "trust"
-version = "0.1.0"
+version = "0.1.1"
 
 [build-dependencies]
 gcc = { git = "https://github.com/alexcrichton/gcc-rs" }
