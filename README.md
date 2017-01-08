@@ -119,6 +119,14 @@ would
 
 - `x86_64-apple-darwin`
 
+### *BSD
+
+- `i686-unknown-freebsd`
+
+- `x86_64-unknown-freebsd`
+
+- `x86_64-unknown-netbsd`
+
 ### Windows (MinGW)
 
 - `i686-pc-windows-gnu`
