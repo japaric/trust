@@ -67,6 +67,8 @@ install:
 script:
   - bash ci/script.sh
 
+after_script: set +e
+
 before_deploy:
   - sh ci/before_deploy.sh
 
@@ -88,8 +90,6 @@ deploy:
     tags: true
   provider: releases
   skip_cleanup: true
-
-after_deploy: set +e
 
 cache: cargo
 before_cache:
