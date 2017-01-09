@@ -58,6 +58,8 @@ matrix:
       os: osx
       rust: nightly
 
+before_install: set -e
+
 install:
   - sh ci/install.sh
   - source ~/.cargo/env || true
