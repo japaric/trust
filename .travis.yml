@@ -89,12 +89,12 @@ deploy:
   provider: releases
   skip_cleanup: true
 
+after_deploy: set +e
+
 cache: cargo
 before_cache:
   # Travis can't cache files that are not readable by "others"
   - chmod -R a+r $HOME/.cargo
-
-after_cache: set +e
 
 branches:
   only:
