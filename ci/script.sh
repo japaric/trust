@@ -19,6 +19,6 @@ main() {
 }
 
 # we don't run the "test phase" when doing deploys
-if [ -z $TRAVIS_TAG ]; then
+if [ -z $TRAVIS_TAG ] || [ -z $APPVEYOR_REPO_TAG_NAME ]; then
     main
 fi
