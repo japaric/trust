@@ -4,6 +4,7 @@
 dist: trusty
 language: rust
 services: docker
+sudo: false
 
 # TODO This is the Rust channel that build jobs will use by default but can be
 # overridden on a case by case basis down below
