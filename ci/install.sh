@@ -12,7 +12,12 @@ main() {
         brew install coreutils # for `sort --sort-version`
     fi
 
-    local tag="$(git ls-remote --tags --refs --exit-code https://github.com/japaric/cross | cut -d/ -f3 | sort --version-sort | tail -n1)"
+    # This fetches latest stable release
+    local tag=$(git ls-remote --tags --refs --exit-code https://github.com/japaric/cross \
+                       | cut -d/ -f3 \
+                       | grep -E '^v[0-9.]+$' \
+                       | sort --version-sort \
+                       | tail -n1)
     echo cross version: $tag
     curl -LSfs https://japaric.github.io/trust/install.sh | \
         sh -s -- \
