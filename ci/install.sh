@@ -7,17 +7,24 @@ main() {
     local target=
     if [ $TRAVIS_OS_NAME = linux ]; then
         target=x86_64-unknown-linux-gnu
+        sort=sort
     else
         target=x86_64-apple-darwin
+        sort=gsort  # for `sort --sort-version`, from brew's coreutils.
     fi
 
-    # TODO At some point you'll probably want to use a newer release of `cross`,
-    # simply change the argument to `--tag`.
+    # This fetches latest stable release
+    local tag=$(git ls-remote --tags --refs --exit-code https://github.com/japaric/cross \
+                       | cut -d/ -f3 \
+                       | grep -E '^v[0-9.]+$' \
+                       | $sort --version-sort \
+                       | tail -n1)
+    echo cross version: $tag
     curl -LSfs https://japaric.github.io/trust/install.sh | \
         sh -s -- \
            --force \
            --git japaric/cross \
-           --tag v0.1.4 \
+           --tag $tag \
            --target $target
 }
 
