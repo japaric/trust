@@ -11,13 +11,13 @@ main() {
         target=x86_64-apple-darwin
     fi
 
-    # TODO At some point you'll probably want to use a newer release of `cross`,
-    # simply change the argument to `--tag`.
+    local tag="$(git ls-remote --tags --refs --exit-code https://github.com/japaric/cross | cut -d/ -f3 | tail -n1)"
+    echo cross version: $tag
     curl -LSfs https://japaric.github.io/trust/install.sh | \
         sh -s -- \
            --force \
            --git japaric/cross \
-           --tag v0.1.4 \
+           --tag $tag \
            --target $target
 }
 
