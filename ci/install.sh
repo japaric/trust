@@ -9,6 +9,7 @@ main() {
         target=x86_64-unknown-linux-gnu
     else
         target=x86_64-apple-darwin
+        brew install coreutils # for `sort --sort-version`
     fi
 
     local tag="$(git ls-remote --tags --refs --exit-code https://github.com/japaric/cross | cut -d/ -f3 | sort --version-sort | tail -n1)"
