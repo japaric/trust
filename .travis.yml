@@ -6,17 +6,15 @@ language: rust
 services: docker
 sudo: required
 
-# TODO This is the Rust channel that build jobs will use by default but can be
-# overridden on a case by case basis down below
-rust: stable
+# TODO Rust builds on stable by default, this can be
+# overridden on a case by case basis down below.
+# rust: stable not specified in order to avoid making
+# a default job.
 
 env:
   global:
     # TODO Update this to match the name of your project.
     - CRATE_NAME=trust
-
-    # default job
-    - TARGET=x86_64-unknown-linux-gnu
 
 matrix:
   # TODO These are all the build jobs. Adjust as necessary. Comment out what you
@@ -25,7 +23,7 @@ matrix:
     # Linux
     - env: TARGET=i686-unknown-linux-gnu
     - env: TARGET=i686-unknown-linux-musl
-    # - env: TARGET=x86_64-unknown-linux-gnu  # this is the default job
+    - env: TARGET=x86_64-unknown-linux-gnu
     - env: TARGET=x86_64-unknown-linux-musl
 
     # OSX
