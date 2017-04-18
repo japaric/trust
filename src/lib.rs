@@ -20,4 +20,10 @@ pub fn hello() {
 mod tests {
     #[test]
     fn it_works() {}
+
+    #[test]
+    #[cfg_attr(trust_ci, ignore)]
+    fn ignore_in_ci() {
+        assert!(false);
+    }
 }
