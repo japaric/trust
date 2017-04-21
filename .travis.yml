@@ -4,7 +4,7 @@
 dist: trusty
 language: rust
 services: docker
-sudo: required
+sudo: false
 
 # TODO Rust builds on stable by default, this can be
 # overridden on a case by case basis down below.
