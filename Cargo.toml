@@ -5,7 +5,7 @@ name = "trust"
 version = "0.1.1"
 
 [build-dependencies]
-gcc = { git = "https://github.com/alexcrichton/gcc-rs" }
+cc = { git = "https://github.com/alexcrichton/cc-rs" }
 
 [target.'cfg(not(target_os = "none"))'.dependencies]
 # Just to test 'cache: cargo'
