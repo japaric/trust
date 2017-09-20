@@ -54,7 +54,9 @@ matrix:
       os: osx
       rust: nightly
 
-before_install: set -e
+before_install:
+  - set -e
+  - rustup self update
 
 install:
   - sh ci/install.sh
