@@ -1,4 +1,4 @@
-extern crate gcc;
+extern crate cc;
 
 use std::env;
 use std::fs::File;
@@ -14,7 +14,9 @@ fn main() {
         .unwrap();
 
     if env::var_os("CARGO_FEATURE_C").is_some() {
-        gcc::compile_library("libhello.a", &["hello.c"]);
+        cc::Build::new()
+            .file("hello.c")
+            .compile("libhello.a");
     }
 
     let target = env::var("TARGET").unwrap();
