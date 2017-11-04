@@ -120,6 +120,32 @@ check if using a newer release (see `ci/install.sh`)
 would
 [fix your problem](https://github.com/japaric/cross/blob/master/CHANGELOG.md).
 
+### Android
+
+- aarch64-linux-android
+
+- arm-linux-androideabi
+
+- armv7-linux-androideabi
+
+- i686-linux-android
+
+- x86_64-linux-android
+
+### iOS
+
+- aarch64-apple-ios
+
+- armv7-apple-ios
+
+- armv7s-apple-ios
+
+- i386-apple-ios
+
+- x86_64-apple-ios
+
+### Linux
+
 - `i686-unknown-linux-gnu`
 
 - `i686-unknown-linux-musl`
@@ -129,6 +155,8 @@ would
 - `x86_64-unknown-linux-musl`
 
 - `aarch64-unknown-linux-gnu`
+
+- `arm-unknown-linux-gnueabi`
 
 - `armv7-unknown-linux-gnueabihf`
 
