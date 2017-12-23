@@ -5,6 +5,19 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [v0.1.2] - 2017-12-23
+
+### Added
+
+- More test / deploy targets
+
+### Changed
+
+- Ensure rustup is always up to date
+- Always use the latest stable release of Cross
+- Don't install rustup twice (the Travis Rust now installs it by default)
+- The x86_64-unknown-linux-gnu target is now part of the target matrix
+
 ## [v0.1.1] - 2017-01-08
 
 ### Added
