@@ -31,8 +31,8 @@ main() {
         osx)
             cp target/$TARGET/release/hello $stage/
             ;;
-
     esac
+    
     cd $stage
     tar czf $src/$CRATE_NAME-$TRAVIS_TAG-$TARGET.tar.gz *
     cd $src
