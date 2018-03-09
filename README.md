@@ -190,6 +190,10 @@ would
 
 - `x86_64-unknown-netbsd`
 
+### Solaris/illumos
+
+- `x86_64-sun-solaris`
+
 ### Windows (MinGW)
 
 - `i686-pc-windows-gnu`
