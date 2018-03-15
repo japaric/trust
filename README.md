@@ -192,6 +192,7 @@ would
 
 ### Solaris/illumos
 
+- `sparcv9-sun-solaris`
 - `x86_64-sun-solaris`
 
 ### Windows (MinGW)
