@@ -87,6 +87,8 @@ branches:
 
 notifications:
   - provider: Email
+    to:
+      - some@email.com
     on_build_success: false
 
 # Building is done in the test phase, so we disable Appveyor's build phase.
