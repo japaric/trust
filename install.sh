@@ -130,7 +130,11 @@ fi
 say_err "Target: $target"
 
 if [ -z $dest ]; then
-    dest="$HOME/.cargo/bin"
+    if [ -n "$CARGO_HOME" ]; then
+        dest="$CARGO_HOME/bin"
+    else
+        dest="$HOME/.cargo/bin"
+    fi
 fi
 
 say_err "Installing to: $dest"
