@@ -68,7 +68,7 @@ CI template.
 
 ```
 $ curl -LSfs https://japaric.github.io/trust/install.sh | \
-    sh -s -- --git japaric/cross
+    sh -s -- --git rust-embedded/cross
 ```
 
 For more details about this installation script see `install.sh -h`
@@ -112,13 +112,13 @@ https://github.com/japaric/trust/compare/v0.1.0...v0.1.1.patch
 
 ### Linux
 
-Courtesy of [`cross`](https://github.com/japaric/cross).
+Courtesy of [`cross`](https://github.com/rust-embedded/cross).
 
 If you run into any problem with any of these targets, report them
-to [`cross`'s issue tracker](https://github.com/japaric/cross/issues) but first
+to [`cross`'s issue tracker](https://github.com/rust-embedded/cross/issues) but first
 check if using a newer release (see `ci/install.sh`)
 would
-[fix your problem](https://github.com/japaric/cross/blob/master/CHANGELOG.md).
+[fix your problem](https://github.com/rust-embedded/cross/blob/master/CHANGELOG.md).
 
 ### Android
 
