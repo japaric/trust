@@ -46,6 +46,14 @@ This is an overview of what must / can be changed:
 
 - the "package phase". Tweak what goes into the release tarball / zipfile.
 
+### Managing test failures
+
+Some tests will fail when run in the `qemu` emulated environment even though
+they succeed on the actual hardware. In this case the `trust_ci` feature flag
+has been exposed to the build, test, and run stages. You can therefore disable
+some tests by putting `#[cfg_attr(trust_ci, ignore)]` before them. These tests
+will show up as 'ignored' in the test output.
+
 ### Generate binary releases
 
 You only need to push an **annotated** tag to kick off the build process.

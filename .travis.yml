@@ -11,6 +11,11 @@ sudo: required
 
 env:
   global:
+    # TODO Change this to passthrough additional environment variables. Additional items
+    # can be appended with a space as a delimiter. The default of "RUSTFLAGS" allows the
+    # "trust_ci" feature to be passed-through to be compiled by Rust. See the Cross
+    # README for more details.
+    - CROSS_BUILD_ENV_PASSTHROUGH=RUSTFLAGS
     # TODO Update this to match the name of your project.
     - CRATE_NAME=trust
 

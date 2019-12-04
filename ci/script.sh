@@ -4,6 +4,11 @@ set -ex
 
 # TODO This is the "test phase", tweak it as you see fit
 main() {
+    # Add a cfg spec to allow disabling specific tests under CI.
+    if [ ! -z $CI ]; then
+        export RUSTFLAGS+=" --cfg=trust_ci"
+    fi
+
     cross build --target $TARGET
     cross build --target $TARGET --release
 
