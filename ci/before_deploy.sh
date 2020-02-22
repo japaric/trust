@@ -21,8 +21,18 @@ main() {
     cross rustc --bin hello --target $TARGET --release -- -C lto
 
     # TODO Update this to package the right artifacts
-    cp target/$TARGET/release/hello $stage/
-
+    case $TARGET in
+        windows)
+            cp target/$TARGET/release/hello.exe $stage/
+            ;;
+        linux)
+            cp target/$TARGET/release/hello $stage/
+            ;;
+        osx)
+            cp target/$TARGET/release/hello $stage/
+            ;;
+    esac
+    
     cd $stage
     tar czf $src/$CRATE_NAME-$TRAVIS_TAG-$TARGET.tar.gz *
     cd $src
