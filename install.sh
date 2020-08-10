@@ -96,11 +96,6 @@ if [ -z $tag ]; then
     need rev
 fi
 
-if [ -z $target ]; then
-    need grep
-    need rustc
-fi
-
 if [ -z $git ]; then
     err 'must specify a git repository using `--git`. Example: `install.sh --git japaric/cross`'
 fi
@@ -124,7 +119,20 @@ else
 fi
 
 if [ -z $target ]; then
-    target=$(rustc -Vv | grep host | cut -d' ' -f2)
+    kernel="$(uname -s)"
+    case $kernel in
+        "Darwin")
+            platform="apple-darwin"
+            ;;
+        "Linux")
+            platform="unknown-linux-gnu"
+            ;;
+        *)
+            err "unknown kernel $kernel"
+            ;;
+    esac
+
+    target="$(uname -m)-$platform"
 fi
 
 say_err "Target: $target"
