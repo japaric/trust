@@ -17,6 +17,7 @@ Options:
     --tag TAG       Tag (version) of the crate to install (default <latest release>)
     --target TARGET Install the release compiled for $TARGET (default <`rustc` host>)
     --to LOCATION   Where to install the binary (default ~/.cargo/bin)
+    --zip           Use the .zip bundle instead of the default .tar.gz
 EOF
 }
 
@@ -44,6 +45,7 @@ need() {
 }
 
 force=false
+ext="tar.gz"
 while test $# -gt 0; do
     case $1 in
         --crate)
@@ -71,6 +73,10 @@ while test $# -gt 0; do
             ;;
         --to)
             dest=$2
+            shift
+            ;;
+        --zip)
+            ext="zip"
             shift
             ;;
         *)
@@ -135,10 +141,14 @@ fi
 
 say_err "Installing to: $dest"
 
-url="$url/download/$tag/$crate-$tag-$target.tar.gz"
+url="$url/download/$tag/$crate-$tag-$target.$ext"
 
 td=$(mktemp -d || mktemp -d -t tmp)
-curl -sL $url | tar -C $td -xz
+if [ "$ext" == "zip" ]; then
+    curl -sL $url | zip -d $td
+else
+    curl -sL $url | tar -C $td -xz
+fi
 
 for f in $(ls $td); do
     test -x $td/$f || continue
