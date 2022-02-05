@@ -19,7 +19,7 @@
 
 - Your crate must be hosted on GitHub (free).
 
-- A [Travis CI](https://travis-ci.org/) account (free).
+- A [Travis CI](https://travis-ci.com/) account (free).
 
 - An [AppVeyor](https://www.appveyor.com/) account (free).
 
