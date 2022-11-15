@@ -117,7 +117,8 @@ say_err "Crate: $crate"
 url="$url/releases"
 
 if [ -z $tag ]; then
-    tag=$(curl -s "$url/latest" | cut -d'"' -f2 | rev | cut -d'/' -f1 | rev)
+    apiUrl="https://api.github.com/repos/$git/releases/latest"
+    tag=$(curl -sL "$apiUrl" | grep '"tag_name":' | cut -d'"' -f4)
     say_err "Tag: latest ($tag)"
 else
     say_err "Tag: $tag"
